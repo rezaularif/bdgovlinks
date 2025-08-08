@@ -266,10 +266,10 @@ const WebsiteItem = ({ website }: { website: { name: string; url: string } }) =>
   );
 };
 
-// Memoized CategoryCard component
+// Memoized CategoryCard component with auto-adjusting height
 const CategoryCard = ({ category }: { category: typeof governmentWebsites[0] }) => {
   return (
-    <Card className="flex flex-col h-full hover:shadow-lg transition-all duration-300 border-border bg-card/50 backdrop-blur-sm">
+    <Card className="flex flex-col hover:shadow-lg transition-all duration-300 border-border bg-card/50 backdrop-blur-sm">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-primary/10 text-primary">
@@ -278,8 +278,8 @@ const CategoryCard = ({ category }: { category: typeof governmentWebsites[0] }) 
           <CardTitle className="text-lg font-semibold">{category.category}</CardTitle>
         </div>
       </CardHeader>
-      <CardContent className="flex-grow">
-        <ul className="space-y-2">
+      <CardContent className="flex-grow pb-4">
+        <ul className="space-y-1">
           {category.websites.map((website, webIndex) => (
             <WebsiteItem key={webIndex} website={website} />
           ))}
