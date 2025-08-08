@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { translations, Language } from '@/lib/translations';
 
 type LanguageContextType = {
@@ -13,6 +13,12 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>('en');
+
+  // Apply language class to body for font styling
+  useEffect(() => {
+    document.body.classList.remove('lang-en', 'lang-bn');
+    document.body.classList.add(`lang-${language}`);
+  }, [language]);
 
   const t = (key: string, ...args: any[]): string => {
     const keys = key.split('.');
