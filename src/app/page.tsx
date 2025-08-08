@@ -222,7 +222,7 @@ const CategoryCard = ({ category }: { category: typeof governmentWebsites[0] }) 
   const { t } = useLanguage();
   
   return (
-    <Card className="flex flex-col hover:shadow-lg transition-all duration-300 border-border bg-card/50 backdrop-blur-sm h-full">
+    <Card className="flex flex-col hover:shadow-lg transition-all duration-300 border-border bg-card/50 backdrop-blur-sm h-full bg-gradient-to-br from-primary/5 via-background to-secondary/5">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-primary/10 text-primary">
