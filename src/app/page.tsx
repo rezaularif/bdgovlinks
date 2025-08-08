@@ -334,7 +334,7 @@ export default function Home() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-foreground">GovBD</h1>
-                <p className="text-xs text-muted-foreground -mt-1">Official Directory</p>
+                <p className="text-xs text-muted-foreground -mt-1">Unofficial Directory</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -355,13 +355,13 @@ export default function Home() {
             <Landmark className="h-10 w-10 text-primary" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Government of Bangladesh
+            Bangladesh Government Websites
           </h1>
           <h2 className="text-2xl md:text-3xl font-semibold text-muted-foreground mb-6">
-            Official Website Directory
+            Unofficial Directory
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Find all official government websites of Bangladesh in one place. Access government services, information, and resources.
+            Find all official government websites of Bangladesh in one place. This is an unofficial directory for easy access to government services and information.
           </p>
         </div>
 
@@ -409,7 +409,7 @@ export default function Home() {
           </div>
           <div className="text-sm text-muted-foreground max-w-2xl mx-auto">
             <p>
-              This directory contains official websites of the Government of Bangladesh. 
+              This is an unofficial directory of government websites of Bangladesh. 
               All links open in a new tab for your convenience. If you find any broken links or 
               would like to suggest additions to this directory, please let us know.
             </p>
