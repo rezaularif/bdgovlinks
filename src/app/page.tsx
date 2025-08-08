@@ -281,6 +281,13 @@ export default function Home() {
     return filteredWebsites.reduce((acc, category) => acc + category.websites.length, 0);
   }, [filteredWebsites]);
 
+  // Function to handle opening email with subject
+  const handleEmailClick = (subject: string) => {
+    const email = "support@govbd.gov.bd"; // Replace with actual support email
+    const body = "";
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   // Don't render scroll-dependent elements until client-side hydration is complete
   if (!isClient) {
     return (
@@ -375,10 +382,18 @@ export default function Home() {
 
         <div className="mt-10 sm:mt-16 text-center">
           <div className="inline-flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-            <Button variant="outline" className="rounded-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base">
+            <Button 
+              variant="outline" 
+              className="rounded-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base"
+              onClick={() => handleEmailClick(t('reportBrokenLink'))}
+            >
               {t('reportBrokenLink')}
             </Button>
-            <Button variant="outline" className="rounded-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base">
+            <Button 
+              variant="outline" 
+              className="rounded-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base"
+              onClick={() => handleEmailClick(t('suggestNewWebsite'))}
+            >
               {t('suggestNewWebsite')}
             </Button>
           </div>
