@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Search, ExternalLink, Building, Landmark, Scale, Globe, Users, Wallet, GraduationCap, Heart, Car, MapPin, ChevronRight, Shield, Phone, Book, Leaf, Zap, Droplets, Train, Plane, Anchor, Camera, Calendar, FileText, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/LanguageContext";
+import BangladeshFlagIcon from "@/components/BangladeshFlagIcon";
 
 // Government website data for Bangladesh with icons - rearranged for better UX
 const governmentWebsites = [
@@ -326,7 +327,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-6 sm:py-8">
         <div className="text-center mb-8 sm:mb-12 pt-2 sm:pt-4">
           <div className="inline-flex items-center justify-center p-2 sm:p-3 rounded-full bg-primary/10 mb-4 sm:mb-6">
-            <Landmark className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
+            <BangladeshFlagIcon className="h-8 w-8 sm:h-10 sm:w-10" />
           </div>
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
             {t('title')}
@@ -394,7 +395,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
             <div className="flex items-center gap-2">
-              <Landmark className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+              <BangladeshFlagIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               <span className="font-medium text-foreground text-sm sm:text-base">GovBD</span>
             </div>
             <div className="flex items-center gap-4">
