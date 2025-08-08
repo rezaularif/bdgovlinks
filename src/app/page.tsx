@@ -202,7 +202,7 @@ const WebsiteItem = ({ website }: { website: { name: string; url: string } }) =>
         <img 
           src={getFaviconUrl(website.url)} 
           alt={`${website.name} favicon`}
-          className="w-5 h-5 rounded-sm"
+          className="w-5 h-5 rounded-sm flex-shrink-0"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = '/favicon.ico';
@@ -211,7 +211,7 @@ const WebsiteItem = ({ website }: { website: { name: string; url: string } }) =>
         <span className="text-foreground group-hover:text-primary transition-colors flex-grow text-sm">
           {website.name}
         </span>
-        <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-all duration-200 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0" />
+        <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-all duration-200 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 flex-shrink-0" />
       </a>
     </li>
   );
@@ -225,7 +225,7 @@ const CategoryCard = ({ category }: { category: typeof governmentWebsites[0] }) 
     <Card className="flex flex-col hover:shadow-lg transition-all duration-300 border-border bg-card/50 backdrop-blur-sm h-full bg-gradient-to-br from-primary/5 via-background to-secondary/5">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-primary/10 text-primary">
+          <div className="p-2 rounded-lg bg-primary/10 text-primary flex-shrink-0">
             {category.icon}
           </div>
           <CardTitle className="text-lg font-semibold">{t(`categories.${category.category}`)}</CardTitle>
@@ -280,23 +280,23 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
       {/* Header with scroll effect */}
       <header className={`sticky top-0 z-10 transition-all duration-300 ${isScrolled ? 'bg-background/80 backdrop-blur-md border-b' : 'bg-transparent border-b border-transparent'}`}>
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
-                <Landmark className="h-6 w-6 text-primary" />
+                <Landmark className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground">GovBD</h1>
-                <p className="text-xs text-muted-foreground -mt-1">{t('subtitle')}</p>
+                <h1 className="text-lg sm:text-xl font-bold text-foreground">GovBD</h1>
+                <p className="text-[0.65rem] sm:text-xs text-muted-foreground -mt-0.5 sm:-mt-1">{t('subtitle')}</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground px-2 py-1 h-8 text-xs sm:text-sm">
                   {t('feedback')}
                 </Button>
-                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground px-2 py-1 h-8 text-xs sm:text-sm">
                   {t('help')}
                 </Button>
               </div>
@@ -305,47 +305,47 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-12 pt-4">
-          <div className="inline-flex items-center justify-center p-3 rounded-full bg-primary/10 mb-6">
-            <Landmark className="h-10 w-10 text-primary" />
+      <div className="container mx-auto px-4 py-6 sm:py-8">
+        <div className="text-center mb-8 sm:mb-12 pt-2 sm:pt-4">
+          <div className="inline-flex items-center justify-center p-2 sm:p-3 rounded-full bg-primary/10 mb-4 sm:mb-6">
+            <Landmark className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
             {t('title')}
           </h1>
-          <h2 className="text-2xl md:text-3xl font-semibold text-muted-foreground mb-6">
+          <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold text-muted-foreground mb-4 sm:mb-6">
             {t('subtitle')}
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl sm:max-w-3xl mx-auto px-2">
             {t('description')}
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto mb-12">
+        <div className="max-w-2xl sm:max-w-3xl mx-auto mb-8 sm:mb-12">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
+            <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4 sm:h-5 sm:w-5" />
             <Input 
               placeholder={t('searchPlaceholder')} 
-              className="pl-12 py-6 text-base rounded-full shadow-sm border-border focus-visible:ring-2 focus-visible:ring-primary/50"
+              className="pl-10 sm:pl-12 py-5 sm:py-6 text-sm sm:text-base rounded-full shadow-sm border-border focus-visible:ring-2 focus-visible:ring-primary/50"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
 
-        <div className="mb-8 text-center">
-          <p className="text-muted-foreground">
+        <div className="mb-6 sm:mb-8 text-center">
+          <p className="text-muted-foreground text-sm sm:text-base">
             {t('websitesFound', websiteCount)}
           </p>
         </div>
 
         {filteredWebsites.length === 0 ? (
-          <div className="text-center py-12">
-            <h3 className="text-xl font-semibold mb-2">{t('noWebsitesFound')}</h3>
-            <p className="text-muted-foreground">{t('tryAdjustingSearch')}</p>
+          <div className="text-center py-8 sm:py-12">
+            <h3 className="text-lg sm:text-xl font-semibold mb-2">{t('noWebsitesFound')}</h3>
+            <p className="text-muted-foreground text-sm sm:text-base">{t('tryAdjustingSearch')}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
             {filteredWebsites.map((category, index) => (
               <div key={index} className="h-full">
                 <CategoryCard category={category} />
@@ -354,16 +354,16 @@ export default function Home() {
           </div>
         )}
 
-        <div className="mt-16 text-center">
-          <div className="inline-flex flex-wrap justify-center gap-4 mb-8">
-            <Button variant="outline" className="rounded-full px-6">
+        <div className="mt-10 sm:mt-16 text-center">
+          <div className="inline-flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <Button variant="outline" className="rounded-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base">
               {t('reportBrokenLink')}
             </Button>
-            <Button variant="outline" className="rounded-full px-6">
+            <Button variant="outline" className="rounded-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base">
               {t('suggestNewWebsite')}
             </Button>
           </div>
-          <div className="text-sm text-muted-foreground max-w-2xl mx-auto">
+          <div className="text-xs sm:text-sm text-muted-foreground max-w-xl sm:max-w-2xl mx-auto px-2">
             <p>
               {t('directoryInfo')}
             </p>
@@ -372,31 +372,29 @@ export default function Home() {
       </div>
       
       {/* Minimal Footer with Language Selector */}
-      <footer className="border-t border-border bg-background/50 backdrop-blur-sm py-6">
+      <footer className="border-t border-border bg-background/50 backdrop-blur-sm py-4 sm:py-6">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center gap-2 mb-4 md:mb-0">
-              <Landmark className="h-5 w-5 text-primary" />
-              <span className="font-medium text-foreground">GovBD</span>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-0">
+            <div className="flex items-center gap-2">
+              <Landmark className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+              <span className="font-medium text-foreground text-sm sm:text-base">GovBD</span>
             </div>
-            <div className="text-sm text-muted-foreground text-center">
+            <div className="text-xs sm:text-sm text-muted-foreground text-center">
               {t('copyright', new Date().getFullYear())}
             </div>
-            <div className="flex gap-4 mt-4 md:mt-0">
-              <div className="flex gap-2">
-                <button 
-                  onClick={() => setLanguage('en')}
-                  className={`text-sm px-3 py-1 rounded-full ${language === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-                >
-                  {t('english')}
-                </button>
-                <button 
-                  onClick={() => setLanguage('bn')}
-                  className={`text-sm px-3 py-1 rounded-full ${language === 'bn' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-                >
-                  {t('bangla')}
-                </button>
-              </div>
+            <div className="flex gap-2">
+              <button 
+                onClick={() => setLanguage('en')}
+                className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full ${language === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                {t('english')}
+              </button>
+              <button 
+                onClick={() => setLanguage('bn')}
+                className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full ${language === 'bn' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                {t('bangla')}
+              </button>
             </div>
           </div>
         </div>
