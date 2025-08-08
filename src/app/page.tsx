@@ -103,6 +103,16 @@ const governmentWebsites = [
     websites: [
       { name: "Dhaka City Corporation", url: "https://dcc.gov.bd" },
       { name: "Chittagong City Corporation", url: "https://ccc.gov.bd" },
+      { name: "Khulna City Corporation", url: "https://kcc.gov.bd" },
+      { name: "Rajshahi City Corporation", url: "https://rcc.gov.bd" },
+      { name: "Barishal City Corporation", url: "https://barcc.gov.bd" },
+      { name: "Sylhet City Corporation", url: "https://sylcc.gov.bd" },
+      { name: "Rangpur City Corporation", url: "https://rangpurcc.gov.bd" },
+      { name: "Mymensingh City Corporation", url: "https://mcc.gov.bd" },
+      { name: "Comilla City Corporation", url: "https://comillacitycorporation.gov.bd" },
+      { name: "Gazipur City Corporation", url: "https://gcc.gov.bd" },
+      { name: "Narayanganj City Corporation", url: "https://narayanganj.gov.bd" },
+      { name: "Savar Upazila Parishad", url: "https://savarup.gov.bd" },
     ]
   }
 ];
