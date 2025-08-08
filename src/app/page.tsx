@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { MadeWithDyad } from "@/components/made-with-dyad";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Search, ExternalLink, Building, Landmark, Scale, Globe, Users, Wallet, GraduationCap, Heart, Car, MapPin, ChevronRight, Shield, Phone, Book, Leaf, Zap, Droplets, Train, Plane, Anchor, Camera, Calendar, FileText, Mail } from "lucide-react";
@@ -417,7 +416,13 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <MadeWithDyad />
+      
+      {/* Footer with Made by Arif */}
+      <div className="py-6 text-center border-t border-border bg-background/50 backdrop-blur-sm">
+        <p className="text-sm text-muted-foreground">
+          Made by Arif
+        </p>
+      </div>
     </div>
   );
 }
