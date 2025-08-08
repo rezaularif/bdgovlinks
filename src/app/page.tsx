@@ -340,7 +340,7 @@ export default function Home() {
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
             <Input 
               placeholder={t('searchPlaceholder')} 
-              className="pl-12 py-6 text-base rounded-xl shadow-sm border-border focus-visible:ring-2 focus-visible:ring-primary/50"
+              className="pl-12 py-6 text-base rounded-full shadow-sm border-border focus-visible:ring-2 focus-visible:ring-primary/50"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
