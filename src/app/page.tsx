@@ -392,13 +392,13 @@ export default function Home() {
       {/* Minimal Footer with Language Selector */}
       <footer className="border-t border-border bg-background/50 backdrop-blur-sm py-4 sm:py-6">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
             <div className="flex items-center gap-2">
               <Landmark className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
               <span className="font-medium text-foreground text-sm sm:text-base">GovBD</span>
             </div>
             <div className="flex items-center gap-4">
-              <div className="text-xs sm:text-sm text-muted-foreground text-center">
+              <div className="text-xs sm:text-sm text-muted-foreground text-center md:text-left">
                 {t('copyright', new Date().getFullYear())}
               </div>
               <div className="flex gap-2">
