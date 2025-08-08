@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Search, ExternalLink, Building, Landmark, Scale, Globe, Users, Wallet, GraduationCap, Heart, Car, MapPin, ChevronRight, Shield, Phone, Book, Leaf, Zap, Droplets, Train, Plane, Anchor, Camera, Calendar, FileText, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Government website data for Bangladesh with icons - rearranged for better UX
 const governmentWebsites = [
@@ -218,6 +219,8 @@ const WebsiteItem = ({ website }: { website: { name: string; url: string } }) =>
 
 // Memoized CategoryCard component with auto-adjusting height
 const CategoryCard = ({ category }: { category: typeof governmentWebsites[0] }) => {
+  const { t } = useLanguage();
+  
   return (
     <Card className="flex flex-col hover:shadow-lg transition-all duration-300 border-border bg-card/50 backdrop-blur-sm h-full">
       <CardHeader className="pb-3">
@@ -225,7 +228,7 @@ const CategoryCard = ({ category }: { category: typeof governmentWebsites[0] }) 
           <div className="p-2 rounded-lg bg-primary/10 text-primary">
             {category.icon}
           </div>
-          <CardTitle className="text-lg font-semibold">{category.category}</CardTitle>
+          <CardTitle className="text-lg font-semibold">{t(`categories.${category.category}`)}</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="flex-grow pb-4">
@@ -242,6 +245,7 @@ const CategoryCard = ({ category }: { category: typeof governmentWebsites[0] }) 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   // Handle scroll effect for header
   useEffect(() => {
@@ -284,15 +288,15 @@ export default function Home() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-foreground">GovBD</h1>
-                <p className="text-xs text-muted-foreground -mt-1">Unofficial Directory</p>
+                <p className="text-xs text-muted-foreground -mt-1">{t('subtitle')}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                Feedback
+                {t('feedback')}
               </Button>
               <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                Help
+                {t('help')}
               </Button>
             </div>
           </div>
@@ -305,13 +309,13 @@ export default function Home() {
             <Landmark className="h-10 w-10 text-primary" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Bangladesh Government Websites
+            {t('title')}
           </h1>
           <h2 className="text-2xl md:text-3xl font-semibold text-muted-foreground mb-6">
-            Unofficial Directory
+            {t('subtitle')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Find all official government websites of Bangladesh in one place. This is an unofficial directory for easy access to government services and information.
+            {t('description')}
           </p>
         </div>
 
@@ -319,7 +323,7 @@ export default function Home() {
           <div className="relative">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
             <Input 
-              placeholder="Search for government websites or categories..." 
+              placeholder={t('searchPlaceholder')} 
               className="pl-12 py-6 text-base rounded-xl shadow-sm border-border focus-visible:ring-2 focus-visible:ring-primary/50"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -329,14 +333,14 @@ export default function Home() {
 
         <div className="mb-8 text-center">
           <p className="text-muted-foreground">
-            {websiteCount} websites found
+            {t('websitesFound')(websiteCount)}
           </p>
         </div>
 
         {filteredWebsites.length === 0 ? (
           <div className="text-center py-12">
-            <h3 className="text-xl font-semibold mb-2">No websites found</h3>
-            <p className="text-muted-foreground">Try adjusting your search term</p>
+            <h3 className="text-xl font-semibold mb-2">{t('noWebsitesFound')}</h3>
+            <p className="text-muted-foreground">{t('tryAdjustingSearch')}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
@@ -351,23 +355,21 @@ export default function Home() {
         <div className="mt-16 text-center">
           <div className="inline-flex flex-wrap justify-center gap-4 mb-8">
             <Button variant="outline" className="rounded-full px-6">
-              Report Broken Link
+              {t('reportBrokenLink')}
             </Button>
             <Button variant="outline" className="rounded-full px-6">
-              Suggest New Website
+              {t('suggestNewWebsite')}
             </Button>
           </div>
           <div className="text-sm text-muted-foreground max-w-2xl mx-auto">
             <p>
-              This is an unofficial directory of government websites of Bangladesh. 
-              All links open in a new tab for your convenience. If you find any broken links or 
-              would like to suggest additions to this directory, please let us know.
+              {t('directoryInfo')}
             </p>
           </div>
         </div>
       </div>
       
-      {/* Minimal Footer */}
+      {/* Minimal Footer with Language Selector */}
       <footer className="border-t border-border bg-background/50 backdrop-blur-sm py-6">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
@@ -376,11 +378,21 @@ export default function Home() {
               <span className="font-medium text-foreground">GovBD</span>
             </div>
             <div className="text-sm text-muted-foreground text-center">
-              © {new Date().getFullYear()} GovBD. Made with ❤️ by Arif.
+              {t('copyright')(new Date().getFullYear())}
             </div>
             <div className="flex gap-4 mt-4 md:mt-0">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">English</a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">বাংলা</a>
+              <button 
+                onClick={() => setLanguage('en')}
+                className={`text-sm ${language === 'en' ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'}`}
+              >
+                {t('english')}
+              </button>
+              <button 
+                onClick={() => setLanguage('bn')}
+                className={`text-sm ${language === 'bn' ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'}`}
+              >
+                {t('bangla')}
+              </button>
             </div>
           </div>
         </div>
