@@ -397,14 +397,6 @@ export default function Home() {
               <Landmark className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
               <span className="font-medium text-foreground text-sm sm:text-base">GovBD</span>
             </div>
-            <div className="flex items-center gap-2 sm:gap-4">
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground px-2 py-1 h-8 text-xs sm:text-sm">
-                {t('feedback')}
-              </Button>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground px-2 py-1 h-8 text-xs sm:text-sm">
-                {t('help')}
-              </Button>
-            </div>
             <div className="flex items-center gap-4">
               <div className="text-xs sm:text-sm text-muted-foreground text-center">
                 {t('copyright', new Date().getFullYear())}
