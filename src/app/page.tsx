@@ -291,13 +291,29 @@ export default function Home() {
                 <p className="text-xs text-muted-foreground -mt-1">{t('subtitle')}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                {t('feedback')}
-              </Button>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                {t('help')}
-              </Button>
+            <div className="flex items-center gap-4">
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => setLanguage('en')}
+                  className={`text-sm px-3 py-1 rounded-full ${language === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                >
+                  {t('english')}
+                </button>
+                <button 
+                  onClick={() => setLanguage('bn')}
+                  className={`text-sm px-3 py-1 rounded-full ${language === 'bn' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                >
+                  {t('bangla')}
+                </button>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                  {t('feedback')}
+                </Button>
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                  {t('help')}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -381,18 +397,7 @@ export default function Home() {
               {t('copyright', new Date().getFullYear())}
             </div>
             <div className="flex gap-4 mt-4 md:mt-0">
-              <button 
-                onClick={() => setLanguage('en')}
-                className={`text-sm ${language === 'en' ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'}`}
-              >
-                {t('english')}
-              </button>
-              <button 
-                onClick={() => setLanguage('bn')}
-                className={`text-sm ${language === 'bn' ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'}`}
-              >
-                {t('bangla')}
-              </button>
+              {/* Language selector moved to header, so we can remove it from footer */}
             </div>
           </div>
         </div>
