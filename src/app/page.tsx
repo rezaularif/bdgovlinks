@@ -367,68 +367,17 @@ export default function Home() {
         </div>
       </div>
       
-      {/* Enhanced Professional Footer */}
-      <footer className="border-t border-border bg-background/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="md:col-span-1">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Landmark className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-foreground">GovBD</h3>
-              </div>
-              <p className="text-muted-foreground text-sm mb-4">
-                Unofficial directory of Bangladesh government websites for easy access to public services.
-              </p>
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Mail className="h-4 w-4 text-primary" />
-                </div>
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Phone className="h-4 w-4 text-primary" />
-                </div>
-              </div>
+      {/* Minimal Footer */}
+      <footer className="border-t border-border bg-background/50 backdrop-blur-sm py-6">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center gap-2 mb-4 md:mb-0">
+              <Landmark className="h-5 w-5 text-primary" />
+              <span className="font-medium text-foreground">GovBD</span>
             </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Categories</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">Ministries</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">Public Services</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">E-Governance</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">Local Government</a></li>
-              </ul>
+            <div className="text-sm text-muted-foreground text-center">
+              © {new Date().getFullYear()} GovBD. Made with ❤️ by Arif.
             </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Resources</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">Help Center</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">Feedback</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">API Documentation</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">Data Sources</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Legal</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">Privacy Policy</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">Terms of Service</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">Disclaimer</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">Accessibility</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-border/50 mt-10 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-muted-foreground text-sm">
-              © {new Date().getFullYear()} GovBD. All rights reserved.
-            </p>
-            <p className="text-muted-foreground text-sm mt-4 md:mt-0">
-              Made with ❤️ by Arif
-            </p>
             <div className="flex gap-4 mt-4 md:mt-0">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">English</a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">বাংলা</a>
