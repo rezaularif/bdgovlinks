@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Search, ExternalLink, Building, Landmark, Scale, Globe, Users, Wallet, GraduationCap, Heart, Car, MapPin, ChevronRight } from "lucide-react";
+import { Search, ExternalLink, Building, Landmark, Scale, Globe, Users, Wallet, GraduationCap, Heart, Car, MapPin, ChevronRight, Shield, Phone, Book, Leaf, Zap, Droplets, Train, Plane, Anchor, Camera, Calendar, FileText, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
@@ -16,6 +16,23 @@ const governmentWebsites = [
     websites: [
       { name: "Prime Minister's Office", url: "https://pmo.gov.bd" },
       { name: "Prime Minister's Office (Old)", url: "https://old.pmo.gov.bd" },
+      { name: "Prime Minister's ICT Cell", url: "https://ictcell.pmo.gov.bd" },
+    ]
+  },
+  {
+    category: "Presidency",
+    icon: <Shield className="h-5 w-5" />,
+    websites: [
+      { name: "President's Office", url: "https://president.gov.bd" },
+      { name: "Vice President's Office", url: "https://vicepresident.gov.bd" },
+    ]
+  },
+  {
+    category: "Parliament",
+    icon: <FileText className="h-5 w-5" />,
+    websites: [
+      { name: "Jatiya Sangsad (National Parliament)", url: "https://parliament.gov.bd" },
+      { name: "Parliament Library", url: "https://library.parliament.gov.bd" },
     ]
   },
   {
@@ -30,6 +47,18 @@ const governmentWebsites = [
       { name: "Ministry of Agriculture", url: "https://moa.gov.bd" },
       { name: "Ministry of Industries", url: "https://moind.gov.bd" },
       { name: "Ministry of Commerce", url: "https://moc.gov.bd" },
+      { name: "Ministry of Public Administration", url: "https://mpa.gov.bd" },
+      { name: "Ministry of Law, Justice and Parliamentary Affairs", url: "https://mole.gov.bd" },
+      { name: "Ministry of Local Government, Rural Development and Cooperatives", url: "https://mlgrd.gov.bd" },
+      { name: "Ministry of Environment and Forest", url: "https://moef.gov.bd" },
+      { name: "Ministry of Information", url: "https://moi.gov.bd" },
+      { name: "Ministry of Labour and Employment", url: "https://mole.gov.bd" },
+      { name: "Ministry of Women and Children Affairs", url: "https://mowca.gov.bd" },
+      { name: "Ministry of Religious Affairs", url: "https://mora.gov.bd" },
+      { name: "Ministry of Science and Technology", url: "https://most.gov.bd" },
+      { name: "Ministry of Food", url: "https://mof.gov.bd" },
+      { name: "Ministry of Water Resources", url: "https://mowr.gov.bd" },
+      { name: "Ministry of Liberation War Affairs", url: "https://mlwa.gov.bd" },
     ]
   },
   {
@@ -39,6 +68,8 @@ const governmentWebsites = [
       { name: "Supreme Court of Bangladesh", url: "https://supremecourt.gov.bd" },
       { name: "Attorney General's Office", url: "https://ago.gov.bd" },
       { name: "Law Commission", url: "https://lawcommission.gov.bd" },
+      { name: "Bangladesh Bar Council", url: "https://barcouncil.gov.bd" },
+      { name: "Judicial Administration Training Institute", url: "https://jati.gov.bd" },
     ]
   },
   {
@@ -49,6 +80,9 @@ const governmentWebsites = [
       { name: "Digital Bangladesh", url: "https://digitalbangladesh.gov.bd" },
       { name: "e-GP (Electronic Government Procurement)", url: "https://egp.gov.bd" },
       { name: "National Portal", url: "https://nationallibrary.gov.bd" },
+      { name: "Bangladesh Computer Council", url: "https://bcc.gov.bd" },
+      { name: "Software Technology Park", url: "https://stp.gov.bd" },
+      { name: "Access to Information Programme", url: "https://ati.gov.bd" },
     ]
   },
   {
@@ -59,6 +93,10 @@ const governmentWebsites = [
       { name: "National Identity Registration", url: "https://nidw.gov.bd" },
       { name: "Land Administration", url: "https://landadministration.gov.bd" },
       { name: "BRDB (Bangladesh Rural Development Board)", url: "https://brdb.gov.bd" },
+      { name: "Bangladesh Post Office", url: "https://postal.gov.bd" },
+      { name: "Teletalk Bangladesh", url: "https://teletalk.com.bd" },
+      { name: "Bangladesh Betar", url: "https://betar.gov.bd" },
+      { name: "BTV (Bangladesh Television)", url: "https://btv.gov.bd" },
     ]
   },
   {
@@ -69,6 +107,10 @@ const governmentWebsites = [
       { name: "SEC Bangladesh", url: "https://sec.gov.bd" },
       { name: "BSEC (Bangladesh Securities and Exchange Commission)", url: "https://bsec.gov.bd" },
       { name: "BIDA (Bangladesh Investment Development Authority)", url: "https://bida.gov.bd" },
+      { name: "Export Promotion Bureau", url: "https://epb.gov.bd" },
+      { name: "Bangladesh Krishi Bank", url: "https://bkb.gov.bd" },
+      { name: "Rajshahi Krishi Unnayan Bank", url: "https://rkub.gov.bd" },
+      { name: "Bangladesh House Building Finance Corporation", url: "https://bhbfc.gov.bd" },
     ]
   },
   {
@@ -78,6 +120,10 @@ const governmentWebsites = [
       { name: "University Grants Commission", url: "https://ugc.ac.bd" },
       { name: "Bangladesh Technical Education Board", url: "https://techedu.gov.bd" },
       { name: "National University", url: "https://nu.ac.bd" },
+      { name: "Dhaka University", url: "https://du.ac.bd" },
+      { name: "Bangladesh Open University", url: "https://bou.edu.bd" },
+      { name: "Bangladesh Academy for Rural Development", url: "https://bard.gov.bd" },
+      { name: "Institute of Water and Flood Management", url: "https://iwfm.buet.ac.bd" },
     ]
   },
   {
@@ -86,6 +132,41 @@ const governmentWebsites = [
     websites: [
       { name: "Directorate General of Health Services", url: "https://dghealth.gov.bd" },
       { name: "Directorate General of Family Planning", url: "https://dgfp.gov.bd" },
+      { name: "Directorate General of Drug Administration", url: "https://dgda.gov.bd" },
+      { name: "Bangladesh Medical and Dental Council", url: "https://bmdc.gov.bd" },
+      { name: "Institute of Epidemiology Disease Control and Research", url: "https://iedcr.gov.bd" },
+      { name: "National Institute of Preventive and Social Medicine", url: "https://nipsm.edu.bd" },
+    ]
+  },
+  {
+    category: "Agriculture and Food Security",
+    icon: <Leaf className="h-5 w-5" />,
+    websites: [
+      { name: "Department of Agricultural Extension", url: "https://dae.gov.bd" },
+      { name: "Bangladesh Rice Research Institute", url: "https://brri.gov.bd" },
+      { name: "Bangladesh Agricultural Research Institute", url: "https://bari.gov.bd" },
+      { name: "Fisheries Department", url: "https://fisheries.gov.bd" },
+      { name: "Department of Livestock Services", url: "https://dls.gov.bd" },
+    ]
+  },
+  {
+    category: "Energy and Power",
+    icon: <Zap className="h-5 w-5" />,
+    websites: [
+      { name: "Ministry of Power, Energy and Mineral Resources", url: "https://mopemr.gov.bd" },
+      { name: "Bangladesh Power Development Board", url: "https://bpdb.gov.bd" },
+      { name: "Rural Electrification Board", url: "https://reb.gov.bd" },
+      { name: "Sylhet Gas Fields Limited", url: "https://sgfl.gov.bd" },
+    ]
+  },
+  {
+    category: "Water Resources and Environment",
+    icon: <Droplets className="h-5 w-5" />,
+    websites: [
+      { name: "Bangladesh Water Development Board", url: "https://bwdb.gov.bd" },
+      { name: "Department of Environment", url: "https://doe.gov.bd" },
+      { name: "Forest Department", url: "https://forest.gov.bd" },
+      { name: "Bangladesh Meteorological Department", url: "https://bmd.gov.bd" },
     ]
   },
   {
@@ -95,6 +176,38 @@ const governmentWebsites = [
       { name: "Bangladesh Road Transport Authority", url: "https://brta.gov.bd" },
       { name: "Civil Aviation Authority", url: "https://caab.gov.bd" },
       { name: "Bangladesh Bridge Authority", url: "https://bridgeauthority.gov.bd" },
+      { name: "Bangladesh Railway", url: "https://railway.gov.bd" },
+      { name: "Bangladesh Inland Water Transport Authority", url: "https://biwta.gov.bd" },
+      { name: "Chittagong Port Authority", url: "https://cpa.gov.bd" },
+      { name: "Mongla Port Authority", url: "https://mpa.gov.bd" },
+      { name: "Bangladesh Highway Department", url: "https://bhd.gov.bd" },
+    ]
+  },
+  {
+    category: "Communication and IT",
+    icon: <Phone className="h-5 w-5" />,
+    websites: [
+      { name: "Bangladesh Telecommunication Regulatory Commission", url: "https://btrc.gov.bd" },
+      { name: "Posts and Telecommunications Division", url: "https://ptd.gov.bd" },
+    ]
+  },
+  {
+    category: "Tourism and Culture",
+    icon: <Camera className="h-5 w-5" />,
+    websites: [
+      { name: "Ministry of Information and Communication Technology", url: "https://moict.gov.bd" },
+      { name: "Bangladesh Tourism Board", url: "https://btb.gov.bd" },
+      { name: "Department of Archaeology", url: "https://doa.gov.bd" },
+      { name: "Liberation War Museum", url: "https://lwmuseum.org" },
+    ]
+  },
+  {
+    category: "Planning and Development",
+    icon: <Calendar className="h-5 w-5" />,
+    websites: [
+      { name: "Planning Commission", url: "https://planningcommission.gov.bd" },
+      { name: "General Economics Division", url: "https://ged.gov.bd" },
+      { name: "Bangladesh Bureau of Statistics", url: "https://bbs.gov.bd" },
     ]
   },
   {
@@ -120,6 +233,8 @@ const governmentWebsites = [
 // Category icons mapping
 const categoryIcons = {
   "Prime Minister's Office": <Landmark className="h-5 w-5" />,
+  "Presidency": <Shield className="h-5 w-5" />,
+  "Parliament": <FileText className="h-5 w-5" />,
   "Ministries": <Building className="h-5 w-5" />,
   "Law and Judiciary": <Scale className="h-5 w-5" />,
   "E-Governance": <Globe className="h-5 w-5" />,
@@ -127,7 +242,13 @@ const categoryIcons = {
   "Economic and Financial Institutions": <Wallet className="h-5 w-5" />,
   "Education and Research": <GraduationCap className="h-5 w-5" />,
   "Health and Social Services": <Heart className="h-5 w-5" />,
+  "Agriculture and Food Security": <Leaf className="h-5 w-5" />,
+  "Energy and Power": <Zap className="h-5 w-5" />,
+  "Water Resources and Environment": <Droplets className="h-5 w-5" />,
   "Transport and Infrastructure": <Car className="h-5 w-5" />,
+  "Communication and IT": <Phone className="h-5 w-5" />,
+  "Tourism and Culture": <Camera className="h-5 w-5" />,
+  "Planning and Development": <Calendar className="h-5 w-5" />,
   "Local Government": <MapPin className="h-5 w-5" />,
 };
 
