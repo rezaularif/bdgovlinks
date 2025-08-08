@@ -246,6 +246,7 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
 
   // Handle scroll effect for header
   useEffect(() => {
@@ -292,19 +293,36 @@ export default function Home() {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <div className="flex gap-2">
+              <div className="relative">
                 <button 
-                  onClick={() => setLanguage('en')}
-                  className={`text-sm px-3 py-1 rounded-full ${language === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                  onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
+                  className="text-sm px-3 py-1 rounded-md text-muted-foreground hover:text-foreground flex items-center gap-1"
                 >
-                  {t('english')}
+                  {language === 'en' ? t('english') : t('bangla')}
+                  <ChevronRight className={`h-4 w-4 transition-transform ${isLanguageDropdownOpen ? 'rotate-90' : ''}`} />
                 </button>
-                <button 
-                  onClick={() => setLanguage('bn')}
-                  className={`text-sm px-3 py-1 rounded-full ${language === 'bn' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-                >
-                  {t('bangla')}
-                </button>
+                {isLanguageDropdownOpen && (
+                  <div className="absolute right-0 mt-1 w-32 rounded-md shadow-lg bg-background border border-border z-20">
+                    <button 
+                      onClick={() => {
+                        setLanguage('en');
+                        setIsLanguageDropdownOpen(false);
+                      }}
+                      className={`block w-full text-left px-4 py-2 text-sm ${language === 'en' ? 'bg-muted' : 'hover:bg-muted'}`}
+                    >
+                      {t('english')}
+                    </button>
+                    <button 
+                      onClick={() => {
+                        setLanguage('bn');
+                        setIsLanguageDropdownOpen(false);
+                      }}
+                      className={`block w-full text-left px-4 py-2 text-sm ${language === 'bn' ? 'bg-muted' : 'hover:bg-muted'}`}
+                    >
+                      {t('bangla')}
+                    </button>
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-2">
                 <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
