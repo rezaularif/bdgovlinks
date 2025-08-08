@@ -314,6 +314,30 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+      {/* Structured data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "GovBD - Bangladesh Government Website Directory",
+            "url": "https://govbd.gov.bd", // Replace with your actual domain
+            "description": "Official directory of Bangladesh government websites. Find all government services, ministries, and public services in one place.",
+            "keywords": "Bangladesh government websites, Bangladesh government directory, government services Bangladesh, Bangladesh public services",
+            "inLanguage": "en",
+            "publisher": {
+              "@type": "Organization",
+              "name": "GovBD",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://govbd.gov.bd/logo.png" // Replace with your actual logo URL
+              }
+            }
+          })
+        }}
+      />
+      
       {/* Header with scroll effect */}
       <header className={`sticky top-0 z-10 transition-all duration-300 ${isScrolled ? 'bg-background/80 backdrop-blur-md border-b' : 'bg-transparent border-b border-transparent'}`}>
         <div className="container mx-auto px-4 py-3">
