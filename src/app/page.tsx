@@ -291,16 +291,6 @@ export default function Home() {
                 <p className="text-[0.65rem] sm:text-xs text-muted-foreground -mt-0.5 sm:-mt-1">{t('subtitle')}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 sm:gap-4">
-              <div className="flex items-center gap-1 sm:gap-2">
-                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground px-2 py-1 h-8 text-xs sm:text-sm">
-                  {t('feedback')}
-                </Button>
-                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground px-2 py-1 h-8 text-xs sm:text-sm">
-                  {t('help')}
-                </Button>
-              </div>
-            </div>
           </div>
         </div>
       </header>
@@ -374,27 +364,37 @@ export default function Home() {
       {/* Minimal Footer with Language Selector */}
       <footer className="border-t border-border bg-background/50 backdrop-blur-sm py-4 sm:py-6">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-0">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
               <Landmark className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
               <span className="font-medium text-foreground text-sm sm:text-base">GovBD</span>
             </div>
-            <div className="text-xs sm:text-sm text-muted-foreground text-center">
-              {t('copyright', new Date().getFullYear())}
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground px-2 py-1 h-8 text-xs sm:text-sm">
+                {t('feedback')}
+              </Button>
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground px-2 py-1 h-8 text-xs sm:text-sm">
+                {t('help')}
+              </Button>
             </div>
-            <div className="flex gap-2">
-              <button 
-                onClick={() => setLanguage('en')}
-                className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border ${language === 'en' ? 'border-primary text-primary' : 'border-muted-foreground text-muted-foreground hover:text-foreground'}`}
-              >
-                {t('english')}
-              </button>
-              <button 
-                onClick={() => setLanguage('bn')}
-                className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border ${language === 'bn' ? 'border-primary text-primary' : 'border-muted-foreground text-muted-foreground hover:text-foreground'}`}
-              >
-                {t('bangla')}
-              </button>
+            <div className="flex items-center gap-4">
+              <div className="text-xs sm:text-sm text-muted-foreground text-center">
+                {t('copyright', new Date().getFullYear())}
+              </div>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => setLanguage('en')}
+                  className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border ${language === 'en' ? 'border-primary text-primary' : 'border-muted-foreground text-muted-foreground hover:text-foreground'}`}
+                >
+                  {t('english')}
+                </button>
+                <button 
+                  onClick={() => setLanguage('bn')}
+                  className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border ${language === 'bn' ? 'border-primary text-primary' : 'border-muted-foreground text-muted-foreground hover:text-foreground'}`}
+                >
+                  {t('bangla')}
+                </button>
+              </div>
             </div>
           </div>
         </div>
