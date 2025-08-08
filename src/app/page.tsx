@@ -245,13 +245,17 @@ const CategoryCard = ({ category }: { category: typeof governmentWebsites[0] }) 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const { language, setLanguage, t } = useLanguage();
 
   // Handle scroll effect for header
   useEffect(() => {
+    setIsClient(true);
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -275,6 +279,30 @@ export default function Home() {
   const websiteCount = useMemo(() => {
     return filteredWebsites.reduce((acc, category) => acc + category.websites.length, 0);
   }, [filteredWebsites]);
+
+  // Don't render scroll-dependent elements until client-side hydration is complete
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+        <header className="sticky top-0 z-10 bg-transparent border-b border-transparent">
+          <div className="container mx-auto px-4 py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <Landmark className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-lg sm:text-xl font-bold text-foreground">GovBD</h1>
+                  <p className="text-[0.65rem] sm:text-xs text-muted-foreground -mt-0.5 sm:-mt-1">{t('subtitle')}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        {/* Rest of the page content would go here */}
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
