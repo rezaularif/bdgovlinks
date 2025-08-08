@@ -385,13 +385,13 @@ export default function Home() {
             <div className="flex gap-2">
               <button 
                 onClick={() => setLanguage('en')}
-                className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full ${language === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border ${language === 'en' ? 'border-primary text-primary' : 'border-muted-foreground text-muted-foreground hover:text-foreground'}`}
               >
                 {t('english')}
               </button>
               <button 
                 onClick={() => setLanguage('bn')}
-                className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full ${language === 'bn' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border ${language === 'bn' ? 'border-primary text-primary' : 'border-muted-foreground text-muted-foreground hover:text-foreground'}`}
               >
                 {t('bangla')}
               </button>
