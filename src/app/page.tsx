@@ -120,6 +120,16 @@ export default function Home() {
     })
     .filter(category => category.websites.length > 0);
 
+  // Function to generate favicon URL
+  const getFaviconUrl = (url: string) => {
+    try {
+      const domain = new URL(url).origin;
+      return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+    } catch (e) {
+      return '/favicon.ico'; // fallback
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
       <div className="container mx-auto px-4 py-8">
@@ -181,9 +191,18 @@ export default function Home() {
                           href={website.url} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="flex items-center justify-between group p-2 rounded-lg hover:bg-muted transition-colors"
+                          className="flex items-center gap-3 group p-2 rounded-lg hover:bg-muted transition-colors"
                         >
-                          <span className="text-foreground group-hover:text-primary transition-colors">
+                          <img 
+                            src={getFaviconUrl(website.url)} 
+                            alt={`${website.name} favicon`}
+                            className="w-5 h-5 rounded-sm"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = '/favicon.ico';
+                            }}
+                          />
+                          <span className="text-foreground group-hover:text-primary transition-colors flex-grow">
                             {website.name}
                           </span>
                           <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
