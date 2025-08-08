@@ -333,7 +333,7 @@ export default function Home() {
 
         <div className="mb-8 text-center">
           <p className="text-muted-foreground">
-            {t('websitesFound')(websiteCount)}
+            {t('websitesFound', websiteCount)}
           </p>
         </div>
 
@@ -378,7 +378,7 @@ export default function Home() {
               <span className="font-medium text-foreground">GovBD</span>
             </div>
             <div className="text-sm text-muted-foreground text-center">
-              {t('copyright')(new Date().getFullYear())}
+              {t('copyright', new Date().getFullYear())}
             </div>
             <div className="flex gap-4 mt-4 md:mt-0">
               <button 

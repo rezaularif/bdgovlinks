@@ -6,7 +6,7 @@ import { translations, Language } from '@/lib/translations';
 type LanguageContextType = {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, ...args: any[]) => string;
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -14,7 +14,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>('en');
 
-  const t = (key: string): string => {
+  const t = (key: string, ...args: any[]): string => {
     const keys = key.split('.');
     let value: any = translations[language];
     
@@ -24,7 +24,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     
     // Handle functions (like websitesFound)
     if (typeof value === 'function') {
-      return value;
+      return value(...args);
     }
     
     return value || key;
