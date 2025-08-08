@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-});
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -28,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${instrumentSerif.variable} ${plusJakartaSans.variable} antialiased`}
+        className={`${plusJakartaSans.variable} antialiased`}
       >
         {children}
       </body>
