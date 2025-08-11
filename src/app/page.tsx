@@ -23,9 +23,9 @@ const governmentWebsites = [
       { name: "Prime Minister's Office", url: "https://pmo.gov.bd" },
       { name: "President's Office", url: "https://president.gov.bd" },
       { name: "Jatiya Sangsad (National Parliament)", url: "https://www.parliament.gov.bd" },
-        { name: "Prime Minister's Office (Old)", url: "https://old.pmo.gov.bd" },
-        { name: "Cabinet Division", url: "https://cabinet.gov.bd" },
-        { name: "Chief Adviser's Office", url: "https://cao.gov.bd" },
+      { name: "Prime Minister's Office (Old)", url: "https://old.pmo.gov.bd" },
+      { name: "Cabinet Division", url: "https://cabinet.gov.bd" },
+      { name: "Chief Adviser's Office", url: "https://cao.gov.bd" },
     ]
   },
   {
@@ -38,11 +38,9 @@ const governmentWebsites = [
       { name: "Ministry of Education", url: "https://moedu.gov.bd" },
       { name: "Ministry of Health and Family Welfare", url: "https://mohfw.gov.bd" },
       { name: "Ministry of Agriculture", url: "https://moa.gov.bd" },
-        { name: "Ministry of Planning", url: "https://mop.gov.bd" },
-        { name: "Ministry of Commerce", url: "https://mincom.gov.bd" },
-        { name: "Ministry of Industries", url: "https://moind.gov.bd" },
-        { name: "ICT Division", url: "https://ictd.gov.bd" },
-        { name: "Posts and Telecommunications Division", url: "https://ptd.gov.bd" },
+      { name: "Ministry of Planning", url: "https://mop.gov.bd" },
+      { name: "Ministry of Commerce", url: "https://mincom.gov.bd" },
+      { name: "Ministry of Industries", url: "https://moind.gov.bd" },
     ]
   },
   {
@@ -50,13 +48,13 @@ const governmentWebsites = [
     icon: <Users className="h-5 w-5" />,
     websites: [
       { name: "Passport Office", url: "https://passport.gov.bd" },
+      { name: "e-Passport", url: "https://www.epassport.gov.bd" },
       { name: "National Identity Registration", url: "https://nidw.gov.bd" },
+      { name: "NBR e-Tax", url: "https://etaxnbr.gov.bd" },
+      { name: "BRTA Service Portal", url: "https://bsp.brta.gov.bd/?lan=en" },
       { name: "Bangladesh Post Office", url: "https://bdpost.gov.bd" },
       { name: "Land Administration", url: "https://landadministration.gov.bd" },
       { name: "Teletalk Bangladesh", url: "https://teletalk.com.bd" },
-        { name: "e-Passport", url: "https://www.epassport.gov.bd" },
-        { name: "NBR e-Tax", url: "https://etaxnbr.gov.bd" },
-        { name: "BRTA Service Portal", url: "https://bsp.brta.gov.bd/?lan=en" },
     ]
   },
   {
@@ -87,14 +85,14 @@ const governmentWebsites = [
     category: "Economic Institutions",
     icon: <Wallet className="h-5 w-5" />,
     websites: [
-        { name: "Bangladesh Bank", url: "https://www.bb.org.bd" },
-      { name: "SEC Bangladesh", url: "https://sec.gov.bd" },
-      { name: "Bangladesh Steel & Engineering Corporation (BSEC)", url: "https://bsec.gov.bd" },
+      { name: "Bangladesh Bank", url: "https://www.bb.org.bd" },
+      { name: "National Board of Revenue (NBR)", url: "https://nbr.gov.bd" },
+      { name: "Securities and Exchange Commission (SEC)", url: "https://sec.gov.bd" },
       { name: "BIDA (Bangladesh Investment Development Authority)", url: "https://bida.gov.bd" },
       { name: "Export Promotion Bureau", url: "https://epb.gov.bd" },
-        { name: "National Board of Revenue (NBR)", url: "https://nbr.gov.bd" },
-        { name: "BEZA (Bangladesh Economic Zones Authority)", url: "https://beza.gov.bd" },
-        { name: "BEPZA (Bangladesh Export Processing Zones Authority)", url: "https://www.bepza.gov.bd" },
+      { name: "BEZA (Bangladesh Economic Zones Authority)", url: "https://beza.gov.bd" },
+      { name: "BEPZA (Bangladesh Export Processing Zones Authority)", url: "https://www.bepza.gov.bd" },
+      { name: "Bangladesh Steel & Engineering Corporation (BSEC)", url: "https://bsec.gov.bd" },
     ]
   },
   {
@@ -167,8 +165,8 @@ const governmentWebsites = [
     websites: [
       { name: "Bangladesh Telecommunication Regulatory Commission", url: "https://btrc.gov.bd" },
       { name: "Posts and Telecommunications Division", url: "https://ptd.gov.bd" },
-        { name: "Software Technology Park", url: "https://stp.gov.bd" },
-        { name: "ICT Division", url: "https://ictd.gov.bd" },
+      { name: "ICT Division", url: "https://ictd.gov.bd" },
+      { name: "Software Technology Park", url: "https://stp.gov.bd" },
     ]
   },
   {
@@ -188,11 +186,12 @@ const governmentWebsites = [
     category: "Additional Ministries",
     icon: <Building className="h-5 w-5" />,
     websites: [
-      { name: "Ministry of Industries", url: "https://moind.gov.bd" },
-        { name: "Ministry of Commerce", url: "https://mincom.gov.bd" },
       { name: "Ministry of Public Administration", url: "https://mpa.gov.bd" },
-        { name: "Ministry of Law, Justice and Parliamentary Affairs", url: "https://minlaw.gov.bd" },
+      { name: "Ministry of Law, Justice and Parliamentary Affairs", url: "https://minlaw.gov.bd" },
       { name: "Ministry of Environment and Forest", url: "https://moef.gov.bd" },
+      { name: "Ministry of Water Resources", url: "https://mowr.gov.bd" },
+      { name: "Ministry of Information and Broadcasting", url: "https://moi.gov.bd" },
+      { name: "Ministry of Cultural Affairs", url: "https://moca.gov.bd" },
     ]
   },
   {
