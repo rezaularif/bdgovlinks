@@ -314,16 +314,30 @@ export default function Home() {
     setIsClient(true);
   }, []);
 
-  // Memoized filtered websites
+  // Memoized filtered websites with improved word-based search
   const filteredWebsites = useMemo(() => {
     if (!searchTerm) return governmentWebsites;
     
+    // Split search term into individual words and clean them
+    const searchWords = searchTerm
+      .toLowerCase()
+      .trim()
+      .split(/\s+/)
+      .filter(word => word.length > 0);
+    
+    if (searchWords.length === 0) return governmentWebsites;
+    
     return governmentWebsites
       .map(category => {
-        const filteredSites = category.websites.filter(website => 
-          website.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          category.category.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        const filteredSites = category.websites.filter(website => {
+          const websiteName = website.name.toLowerCase();
+          const categoryName = category.category.toLowerCase();
+          
+          // Check if any search word matches in website name or category
+          return searchWords.some(word => 
+            websiteName.includes(word) || categoryName.includes(word)
+          );
+        });
         return { ...category, websites: filteredSites };
       })
       .filter(category => category.websites.length > 0);
