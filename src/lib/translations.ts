@@ -2,7 +2,7 @@ export const translations = {
   en: {
     title: "Bangladesh Government Websites",
     subtitle: "Unofficial Directory",
-    description: "Find all official government websites of Bangladesh in one place. This is an unofficial directory for easy access to government services and information.",
+    description: "Find all official government websites of Bangladesh in one place.",
     searchPlaceholder: "Search for government websites or categories...",
     websitesFound: (count: number) => `${count} websites found`,
     noWebsitesFound: "No websites found",
@@ -12,7 +12,7 @@ export const translations = {
     directoryInfo: "This is an unofficial directory of government websites of Bangladesh. All links open in a new tab for your convenience. If you find any broken links or would like to suggest additions to this directory, please let us know.",
     feedback: "Feedback",
     help: "Help",
-    copyright: (year: number) => `© ${year} GovBD. Made with ❤️ by Arif.`,
+    copyright: (year: number) => `© ${year} BdGovLinks. Made by Arif.`,
     english: "English",
     bangla: "বাংলা",
     categories: {
@@ -31,13 +31,14 @@ export const translations = {
       "Local Government": "Local Government",
       "Additional Ministries": "Additional Ministries",
       "Social Services": "Social Services",
-      "Planning and Development": "Planning and Development"
+      "Planning and Development": "Planning and Development",
+      "Administrative Directory": "Administrative Directory"
     }
   },
   bn: {
     title: "বাংলাদেশ সরকারি ওয়েবসাইটসমূহ",
     subtitle: "অনীহারিক ডিরেক্টরি",
-    description: "বাংলাদেশের সমস্ত অফিসিয়াল সরকারি ওয়েবসাইটগুলি এক জায়গায় খুঁজুন। এটি সরকারি পরিষেবা এবং তথ্য সহজে অ্যাক্সেস করার জন্য একটি অনীহারিক ডিরেক্টরি।",
+    description: "বাংলাদেশের সমস্ত অফিসিয়াল সরকারি ওয়েবসাইটগুলি এক জায়গায় খুঁজুন।",
     searchPlaceholder: "সরকারি ওয়েবসাইট বা বিভাগ অনুসন্ধান করুন...",
     websitesFound: (count: number) => `${count} টি ওয়েবসাইট পাওয়া গেছে`,
     noWebsitesFound: "কোন ওয়েবসাইট পাওয়া যায়নি",
@@ -47,7 +48,7 @@ export const translations = {
     directoryInfo: "এটি বাংলাদেশের সরকারি ওয়েবসাইটগুলির একটি অনীহারিক ডিরেক্টরি। সুবিধার জন্য সমস্ত লিঙ্ক নতুন ট্যাবে খোলে। আপনি যদি কোনও ভাঙা লিঙ্ক খুঁজে পান বা এই ডিরেক্টরিতে সংযোজন প্রস্তাবনা করতে চান তবে আমাদের জানান।",
     feedback: "প্রতিক্রিয়া",
     help: "সাহায্য",
-    copyright: (year: number) => `© ${year} GovBD. আরিফ দ্বারা তৈরি ❤️`,
+    copyright: (year: number) => `© ${year} BdGovLinks. আরিফ দ্বারা তৈরি`,
     english: "English",
     bangla: "বাংলা",
     categories: {
@@ -66,7 +67,8 @@ export const translations = {
       "Local Government": "স্থানীয় সরকার",
       "Additional Ministries": "অতিরিক্ত মন্ত্রণালয়",
       "Social Services": "সামাজিক সেবা",
-      "Planning and Development": "পরিকল্পনা ও উন্নয়ন"
+      "Planning and Development": "পরিকল্পনা ও উন্নয়ন",
+      "Administrative Directory": "প্রশাসনিক ডিরেক্টরি"
     }
   }
 };

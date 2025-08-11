@@ -1,0 +1,13 @@
+{
+  "name": "BdGovLinks - Bangladesh Government Websites",
+  "short_name": "BdGovLinks",
+  "icons": [
+    { "src": "/favicon-96x96.png", "sizes": "96x96", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#16a34a"
+}
+
