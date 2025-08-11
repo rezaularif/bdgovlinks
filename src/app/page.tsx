@@ -10,6 +10,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import BangladeshFlagIcon from "@/components/BangladeshFlagIcon";
 import HeroParticles from "@/components/HeroParticles";
 import SearchIcon from "@/components/SearchIcon";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 import { cn } from "@/lib/utils";
 import iconMap from "@/lib/site-icons.json" with { type: "json" };
 import iconOverrides from "@/lib/site-icons-overrides.json" with { type: "json" };
@@ -305,20 +306,12 @@ const CategoryCard = ({ category }: { category: typeof governmentWebsites[0] }) 
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const { language, setLanguage, t } = useLanguage();
 
-  // Handle scroll effect for header
+  // Handle client-side hydration
   useEffect(() => {
     setIsClient(true);
-    
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Memoized filtered websites
@@ -351,8 +344,8 @@ export default function Home() {
   // Don't render scroll-dependent elements until client-side hydration is complete
   if (!isClient) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
-        <header className="sticky top-0 z-10 bg-transparent border-b border-transparent">
+      <div className="min-h-screen bg-background">
+        <header className="sticky top-0 z-50 bg-background border-b">
           <div className="container mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 sm:gap-3">
@@ -373,7 +366,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+    <div className="min-h-screen bg-background">
       {/* Structured data for SEO */}
       <script
         type="application/ld+json"
@@ -399,7 +392,7 @@ export default function Home() {
       />
       
       {/* Header with scroll effect */}
-      <header className={`sticky top-0 z-10 transition-all duration-300 ${isScrolled ? 'bg-background/80 backdrop-blur-md border-b' : 'bg-transparent border-b border-transparent'}`}>
+      <header className={`sticky top-0 z-50 bg-background border-b`}>
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-3">
@@ -418,7 +411,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8 sm:py-12 relative">
         <HeroParticles />
         <div className="text-center mb-10 sm:mb-16 pt-4 sm:pt-8 relative z-10">
-          <div className="inline-flex items-center justify-center p-3 sm:p-4 rounded-full bg-gradient-to-br from-primary/10 to-primary/20 mb-6 sm:mb-8 shadow-lg">
+          <div className="inline-flex items-center justify-center p-3 sm:p-4 rounded-full bg-primary/10 mb-6 sm:mb-8 shadow-lg">
             <BangladeshFlagIcon className="h-10 w-10 sm:h-12 sm:w-12" />
           </div>
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4 sm:mb-6 tracking-tight">
@@ -497,36 +490,60 @@ export default function Home() {
         </div>
       </div>
       
-      {/* Minimal Footer with Language Selector */}
-      <footer className="border-t border-border bg-background/50 backdrop-blur-sm py-4 sm:py-6">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
-            <div className="flex items-center gap-2">
-              <BangladeshFlagIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-              <span className="font-medium text-foreground text-sm sm:text-base">BdGovLinks</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-xs sm:text-sm text-muted-foreground text-center md:text-left">
-                {t('copyright', new Date().getFullYear())}
-              </div>
-              <div className="flex gap-2">
-                <button 
+      {/* Footer with improved layout and solid background */}
+      <footer className="border-t border-border bg-background">
+        <div className="container mx-auto px-4 py-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+            {/* Language switcher */}
+            <div className="order-2 md:order-2 flex justify-center md:justify-end">
+              <div className="inline-flex items-center rounded-full border border-border bg-card p-0.5">
+                <button
+                  aria-label="Switch to English"
                   onClick={() => setLanguage('en')}
-                  className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border ${language === 'en' ? 'border-primary text-primary' : 'border-muted-foreground text-muted-foreground hover:text-foreground'}`}
+                  className={cn(
+                    "px-3 sm:px-4 py-1.5 text-xs sm:text-sm rounded-full transition-colors",
+                    language === 'en'
+                      ? "text-primary border border-primary/30 bg-primary/5"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
+                  )}
                 >
                   {t('english')}
                 </button>
-                <button 
+                <button
+                  aria-label="Switch to Bangla"
                   onClick={() => setLanguage('bn')}
-                  className={`text-xs sm:text-sm px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border ${language === 'bn' ? 'border-primary text-primary' : 'border-muted-foreground text-muted-foreground hover:text-foreground'}`}
+                  className={cn(
+                    "px-3 sm:px-4 py-1.5 text-xs sm:text-sm rounded-full transition-colors",
+                    language === 'bn'
+                      ? "text-primary border border-primary/30 bg-primary/5"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
+                  )}
                 >
                   {t('bangla')}
                 </button>
               </div>
             </div>
+
+            {/* Copyright (left) */}
+            <div className="order-1 md:order-1 text-left text-xs sm:text-sm text-muted-foreground">
+              <span>
+                © {new Date().getFullYear()} BdGovLinks. {language === 'bn' ? 'তৈরি করেছেন' : 'Made by'}
+              </span>
+              {' '}
+              <a
+                href="https://x.com/rezaul_arif"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground hover:underline underline-offset-2"
+              >
+                {language === 'bn' ? 'আরিফ' : 'Arif'}
+              </a>
+              {language === 'bn' ? '' : '.'}
+            </div>
           </div>
         </div>
       </footer>
+      <ScrollToTopButton />
     </div>
   );
 }
