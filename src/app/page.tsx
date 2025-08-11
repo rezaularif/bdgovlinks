@@ -314,7 +314,7 @@ export default function Home() {
     setIsClient(true);
   }, []);
 
-  // Memoized filtered websites with improved word-based search
+  // Memoized filtered websites with advanced search logic
   const filteredWebsites = useMemo(() => {
     if (!searchTerm) return governmentWebsites;
     
@@ -332,11 +332,27 @@ export default function Home() {
         const filteredSites = category.websites.filter(website => {
           const websiteName = website.name.toLowerCase();
           const categoryName = category.category.toLowerCase();
+          const searchableText = `${websiteName} ${categoryName}`;
           
-          // Check if any search word matches in website name or category
-          return searchWords.some(word => 
+          // Method 1: Check if any individual search word matches
+          const individualWordMatch = searchWords.some(word => 
             websiteName.includes(word) || categoryName.includes(word)
           );
+          
+          // Method 2: Check if concatenated search words match (for compound words like "tele talk" -> "teletalk")
+          const concatenatedMatch = searchableText.includes(searchWords.join(''));
+          
+          // Method 3: Check if search words appear in sequence (with potential separators)
+          const sequenceMatch = (() => {
+            if (searchWords.length === 1) return false; // Skip for single words
+            
+            // Create a regex that matches the words in sequence with optional separators
+            const regexPattern = searchWords.join('[\\s\\-_]*');
+            const regex = new RegExp(regexPattern, 'i');
+            return regex.test(searchableText);
+          })();
+          
+          return individualWordMatch || concatenatedMatch || sequenceMatch;
         });
         return { ...category, websites: filteredSites };
       })
