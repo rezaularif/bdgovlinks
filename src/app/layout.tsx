@@ -64,20 +64,11 @@ export const metadata: Metadata = {
     title: "BdGovLinks - Unofficial Directory of Bangladesh Government Websites",
     description: "Find all official government websites of Bangladesh in one place. Access government services, information, and resources.",
     siteName: "BdGovLinks",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "BdGovLinks - Bangladesh Government Website Directory"
-      }
-    ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "BdGovLinks - Bangladesh Government Website Directory",
+    title: "BdGovLinks - Unofficial Directory of Bangladesh Government Websites",
     description: "Find all official government websites of Bangladesh in one place. Access government services, information, and resources.",
-    images: ["/og-image.png"]
   },
   alternates: {
     canonical: "https://govbd.gov.bd", // Replace with your actual domain
