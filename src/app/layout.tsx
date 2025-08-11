@@ -10,7 +10,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://govbd.gov.bd"),
+  metadataBase: new URL(process.env.NODE_ENV === 'production' ? "https://bdgovlinks.com" : "http://localhost:3000"),
   title: {
     template: "%s | BdGovLinks - Bangladesh Government Website Directory", 
     default: "BdGovLinks - Unofficial Directory of Bangladesh Government Websites"
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://govbd.gov.bd", // Replace with your actual domain
+    url: "https://bdgovlinks.com",
     title: "BdGovLinks - Unofficial Directory of Bangladesh Government Websites",
     description: "Find all official government websites of Bangladesh in one place. Access government services, information, and resources.",
     siteName: "BdGovLinks",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     description: "Find all official government websites of Bangladesh in one place. Access government services, information, and resources.",
   },
   alternates: {
-    canonical: "https://govbd.gov.bd", // Replace with your actual domain
+    canonical: "https://bdgovlinks.com",
   },
 };
 

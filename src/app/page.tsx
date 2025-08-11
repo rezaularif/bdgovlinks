@@ -343,7 +343,7 @@ export default function Home() {
 
   // Function to handle opening email with subject
   const handleEmailClick = (subject: string) => {
-    const email = "support@govbd.gov.bd"; // Replace with actual support email
+    const email = "support@bdgovlinks.com";
     const body = "";
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
@@ -382,7 +382,7 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "BdGovLinks - Bangladesh Government Website Directory",
-            "url": "https://govbd.gov.bd", // Replace with your actual domain
+            "url": "https://bdgovlinks.com",
             "description": "Unofficial directory of Bangladesh government websites. Find all government services, ministries, and public services in one place.",
             "keywords": "Bangladesh government websites, Bangladesh government directory, government services Bangladesh, Bangladesh public services",
             "inLanguage": "en",
@@ -391,7 +391,7 @@ export default function Home() {
               "name": "BdGovLinks",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://govbd.gov.bd/logo.png" // Replace with your actual logo URL
+                "url": "https://bdgovlinks.com/logo.png"
               }
             }
           })

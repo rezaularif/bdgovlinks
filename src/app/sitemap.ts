@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next';
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://govbd.gov.bd', // Replace with your actual domain
+      url: 'https://bdgovlinks.com',
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
