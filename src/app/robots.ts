@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: [],
     },
-    sitemap: 'https://govbd.gov.bd/sitemap.xml', // Replace with your actual domain
+    sitemap: 'https://bdgovlinks.com/sitemap.xml',
   };
 }

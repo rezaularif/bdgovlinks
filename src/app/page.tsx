@@ -11,8 +11,8 @@ import BangladeshFlagIcon from "@/components/BangladeshFlagIcon";
 import HeroParticles from "@/components/HeroParticles";
 import SearchIcon from "@/components/SearchIcon";
 import { cn } from "@/lib/utils";
-import iconMap from "@/lib/site-icons.json" assert { type: "json" };
-import iconOverrides from "@/lib/site-icons-overrides.json" assert { type: "json" };
+import iconMap from "@/lib/site-icons.json" with { type: "json" };
+import iconOverrides from "@/lib/site-icons-overrides.json" with { type: "json" };
 
 // Government website data for Bangladesh with icons - rearranged for better UX
 const governmentWebsites = [

@@ -9,13 +9,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: 'https://govbd.gov.bd/en', // Replace with your actual domain
+      url: 'https://bdgovlinks.com/en',
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: 'https://govbd.gov.bd/bn', // Replace with your actual domain
+      url: 'https://bdgovlinks.com/bn',
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
