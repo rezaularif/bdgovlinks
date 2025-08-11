@@ -493,9 +493,9 @@ export default function Home() {
       {/* Footer with improved layout and solid background */}
       <footer className="border-t border-border bg-background">
         <div className="container mx-auto px-4 py-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-            {/* Language switcher */}
-            <div className="order-2 md:order-2 flex justify-center md:justify-end">
+          <div className="flex flex-col md:grid md:grid-cols-2 gap-4 items-center">
+            {/* Language switcher - on top for mobile, right for desktop */}
+            <div className="order-1 md:order-2 flex justify-center md:justify-end">
               <div className="inline-flex items-center rounded-full border border-border bg-card p-0.5">
                 <button
                   aria-label="Switch to English"
@@ -524,8 +524,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Copyright (left) */}
-            <div className="order-1 md:order-1 text-left text-xs sm:text-sm text-muted-foreground">
+            {/* Copyright - centered on mobile, left on desktop */}
+            <div className="order-2 md:order-1 text-center md:text-left text-xs sm:text-sm text-muted-foreground">
               <span>
                 © {new Date().getFullYear()} BdGovLinks. {language === 'bn' ? 'তৈরি করেছেন' : 'Made by'}
               </span>
