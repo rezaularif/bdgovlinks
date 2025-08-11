@@ -383,7 +383,7 @@ export default function Home() {
             "@type": "WebSite",
             "name": "BdGovLinks - Bangladesh Government Website Directory",
             "url": "https://govbd.gov.bd", // Replace with your actual domain
-            "description": "Official directory of Bangladesh government websites. Find all government services, ministries, and public services in one place.",
+            "description": "Unofficial directory of Bangladesh government websites. Find all government services, ministries, and public services in one place.",
             "keywords": "Bangladesh government websites, Bangladesh government directory, government services Bangladesh, Bangladesh public services",
             "inLanguage": "en",
             "publisher": {

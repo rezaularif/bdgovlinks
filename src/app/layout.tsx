@@ -12,8 +12,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://govbd.gov.bd"),
   title: {
-    template: "%s | BdGovLinks - Bangladesh Government Website Directory",
-    default: "BdGovLinks - Official Directory of Bangladesh Government Websites"
+    template: "%s | BdGovLinks - Bangladesh Government Website Directory", 
+    default: "BdGovLinks - Unofficial Directory of Bangladesh Government Websites"
   },
   description: "Find all official government websites of Bangladesh in one place. Access government services, information, and resources. Unofficial directory for easy access to Bangladesh government portals.",
   keywords: [
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://govbd.gov.bd", // Replace with your actual domain
-    title: "BdGovLinks - Official Directory of Bangladesh Government Websites",
+    title: "BdGovLinks - Unofficial Directory of Bangladesh Government Websites",
     description: "Find all official government websites of Bangladesh in one place. Access government services, information, and resources.",
     siteName: "BdGovLinks",
     images: [
