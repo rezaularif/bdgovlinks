@@ -2,17 +2,20 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
+import PerformanceMonitor from "@/components/PerformanceMonitor";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
+  fallback: ["system-ui", "arial"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NODE_ENV === 'production' ? "https://bdgovlinks.com" : "http://localhost:3000"),
   title: {
-    template: "%s | BdGovLinks - Bangladesh Government Website Directory", 
+    template: "%s | BdGovLinks - Bangladesh Government Website Directory",
     default: "BdGovLinks - Unofficial Directory of Bangladesh Government Websites"
   },
   description: "Find all official government websites of Bangladesh in one place. Access government services, information, and resources. Unofficial directory for easy access to Bangladesh government portals.",
@@ -82,11 +85,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload critical resources */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      </head>
       <body
         className={`${plusJakartaSans.variable} antialiased`}
       >
         <LanguageProvider>
           {children}
+          <PerformanceMonitor />
         </LanguageProvider>
       </body>
     </html>

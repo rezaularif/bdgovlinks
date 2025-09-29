@@ -1,3 +1,6 @@
+/* Optimized CSS with performance improvements */
+
+/* Load critical fonts first with display=swap */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -80,14 +83,53 @@
 @layer base {
   * {
     @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    /* Optimize rendering performance */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
   }
   
-  /* Apply Noto Sans Bengali for Bangla language */
+  html {
+    /* Enable smooth scrolling for better UX */
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
+    /* Prevent layout shifts */
+    line-height: 1.5;
+  }
+  
+  /* Apply Noto Sans Bengali for Bangla language with fallback */
   .lang-bn {
-    font-family: 'Noto Sans Bengali', var(--font-plus-jakarta-sans), sans-serif;
+    font-family: 'Noto Sans Bengali', var(--font-plus-jakarta-sans), system-ui, sans-serif;
+    /* Optimize Bengali text rendering */
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  }
+}
+
+/* Performance optimizations for images */
+img {
+  /* Prevent layout shifts */
+  max-width: 100%;
+  height: auto;
+  /* Optimize image rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Optimize button and interactive elements */
+button, a {
+  /* Improve touch responsiveness */
+  touch-action: manipulation;
+}
+
+/* Reduce animation overhead for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -232,7 +232,7 @@ const governmentWebsites = [
     }
 ];
 
-// Memoized WebsiteItem component with local favicon cache fallback
+// Optimized WebsiteItem component with lazy loading and local favicon cache
 const WebsiteItem = ({ website }: { website: { name: string; url: string } }) => {
   const getLocalIconPath = useCallback((url: string) => {
     try {
@@ -248,6 +248,8 @@ const WebsiteItem = ({ website }: { website: { name: string; url: string } }) =>
     }
   }, []);
 
+  const iconSrc = getLocalIconPath(website.url);
+
   return (
     <li>
       <a
@@ -257,9 +259,10 @@ const WebsiteItem = ({ website }: { website: { name: string; url: string } }) =>
         className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/40 transition-colors"
       >
         <img
-          src={getLocalIconPath(website.url)}
+          src={iconSrc}
           alt="site icon"
           className="w-5 h-5 rounded-sm border border-border/40 bg-card flex-shrink-0"
+          loading="lazy" // Lazy load icons
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = '/site-icons/fall_back-favicon.png';
@@ -314,45 +317,65 @@ export default function Home() {
     setIsClient(true);
   }, []);
 
-  // Memoized filtered websites with advanced search logic
+  // Optimized memoized filtered websites with efficient search logic
   const filteredWebsites = useMemo(() => {
-    if (!searchTerm) return governmentWebsites;
+    if (!searchTerm.trim()) return governmentWebsites;
     
-    // Split search term into individual words and clean them
-    const searchWords = searchTerm
-      .toLowerCase()
-      .trim()
-      .split(/\s+/)
-      .filter(word => word.length > 0);
+    const searchLower = searchTerm.toLowerCase().trim();
     
-    if (searchWords.length === 0) return governmentWebsites;
+    // Early return for exact matches or very short searches
+    if (searchLower.length <= 2) {
+      return governmentWebsites
+        .map(category => {
+          const filteredSites = category.websites.filter(website =>
+            website.name.toLowerCase().includes(searchLower) ||
+            category.category.toLowerCase().includes(searchLower)
+          );
+          return { ...category, websites: filteredSites };
+        })
+        .filter(category => category.websites.length > 0);
+    }
+    
+    // Split search term into individual words
+    const searchWords = searchLower.split(/\s+/).filter(word => word.length > 0);
     
     return governmentWebsites
       .map(category => {
+        const categoryLower = category.category.toLowerCase();
         const filteredSites = category.websites.filter(website => {
-          const websiteName = website.name.toLowerCase();
-          const categoryName = category.category.toLowerCase();
-          const searchableText = `${websiteName} ${categoryName}`;
+          const websiteLower = website.name.toLowerCase();
+          const combinedText = `${websiteLower} ${categoryLower}`;
           
-          // Method 1: Check if any individual search word matches
-          const individualWordMatch = searchWords.some(word => 
-            websiteName.includes(word) || categoryName.includes(word)
+          // Fast path: check for exact substring match first
+          if (combinedText.includes(searchLower)) {
+            return true;
+          }
+          
+          // Check if all search words are present (AND logic)
+          const allWordsMatch = searchWords.every(word =>
+            websiteLower.includes(word) || categoryLower.includes(word)
           );
           
-          // Method 2: Check if concatenated search words match (for compound words like "tele talk" -> "teletalk")
-          const concatenatedMatch = searchableText.includes(searchWords.join(''));
+          if (allWordsMatch) return true;
           
-          // Method 3: Check if search words appear in sequence (with potential separators)
-          const sequenceMatch = (() => {
-            if (searchWords.length === 1) return false; // Skip for single words
-            
-            // Create a regex that matches the words in sequence with optional separators
+          // Check for concatenated match (for compound words like "tele talk" -> "teletalk")
+          if (combinedText.includes(searchWords.join(''))) {
+            return true;
+          }
+          
+          // For multi-word searches, check sequence match
+          if (searchWords.length > 1) {
             const regexPattern = searchWords.join('[\\s\\-_]*');
-            const regex = new RegExp(regexPattern, 'i');
-            return regex.test(searchableText);
-          })();
+            try {
+              const regex = new RegExp(regexPattern, 'i');
+              return regex.test(combinedText);
+            } catch {
+              // Fallback if regex fails
+              return false;
+            }
+          }
           
-          return individualWordMatch || concatenatedMatch || sequenceMatch;
+          return false;
         });
         return { ...category, websites: filteredSites };
       })
