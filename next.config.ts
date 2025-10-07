@@ -31,11 +31,12 @@ const nextConfig: NextConfig = {
   
   // Enable React production optimizations
   reactStrictMode: true,
-  
-  // Remove problematic experimental CSS optimization
-  // experimental: {
-  //   optimizeCss: true, // This requires critters dependency
-  // },
+
+  modularizeImports: {
+    "lucide-react": {
+      transform: "lucide-react/dist/esm/icons/{{member}}",
+    },
+  },
 };
 
 export default nextConfig;

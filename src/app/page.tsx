@@ -1,19 +1,48 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
-import Link from "next/link";
+import { useState, useEffect, useMemo, useCallback, useDeferredValue } from "react";
+import dynamic from "next/dynamic";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ExternalLink, Building, Landmark, Scale, Globe, Users, Wallet, GraduationCap, Heart, Car, MapPin, ChevronRight, Shield, Phone, Book, Leaf, Zap, Droplets, Train, Plane, Anchor, Camera, Calendar, FileText, Mail } from "lucide-react";
+import {
+  Building,
+  Landmark,
+  Scale,
+  Globe,
+  Users,
+  Wallet,
+  GraduationCap,
+  Heart,
+  Car,
+  MapPin,
+  Phone,
+  Leaf,
+  Zap,
+  Calendar,
+  FileText,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/LanguageContext";
 import BangladeshFlagIcon from "@/components/BangladeshFlagIcon";
-import HeroParticles from "@/components/HeroParticles";
 import SearchIcon from "@/components/SearchIcon";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
 import { cn } from "@/lib/utils";
 import iconMap from "@/lib/site-icons.json" with { type: "json" };
 import iconOverrides from "@/lib/site-icons-overrides.json" with { type: "json" };
+
+const HeroParticles = dynamic(() => import("@/components/HeroParticles"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      aria-hidden="true"
+    />
+  ),
+});
+
+const ScrollToTopButton = dynamic(
+  () => import("@/components/ScrollToTopButton"),
+  { ssr: false }
+);
 
 // Government website data for Bangladesh with icons - rearranged for better UX
 const governmentWebsites = [
@@ -232,6 +261,26 @@ const governmentWebsites = [
     }
 ];
 
+const structuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "BdGovLinks - Bangladesh Government Website Directory",
+  url: "https://bdgovlinks.com",
+  description:
+    "Unofficial directory of Bangladesh government websites. Find all government services, ministries, and public services in one place.",
+  keywords:
+    "Bangladesh government websites, Bangladesh government directory, government services Bangladesh, Bangladesh public services",
+  inLanguage: "en",
+  publisher: {
+    "@type": "Organization",
+    name: "BdGovLinks",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://bdgovlinks.com/logo.png",
+    },
+  },
+});
+
 // Optimized WebsiteItem component with lazy loading and local favicon cache
 const WebsiteItem = ({ website }: { website: { name: string; url: string } }) => {
   const getLocalIconPath = useCallback((url: string) => {
@@ -311,6 +360,7 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isClient, setIsClient] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const deferredSearchTerm = useDeferredValue(searchTerm);
 
   // Handle client-side hydration
   useEffect(() => {
@@ -319,9 +369,9 @@ export default function Home() {
 
   // Optimized memoized filtered websites with efficient search logic
   const filteredWebsites = useMemo(() => {
-    if (!searchTerm.trim()) return governmentWebsites;
-    
-    const searchLower = searchTerm.toLowerCase().trim();
+    if (!deferredSearchTerm.trim()) return governmentWebsites;
+
+    const searchLower = deferredSearchTerm.toLowerCase().trim();
     
     // Early return for exact matches or very short searches
     if (searchLower.length <= 2) {
@@ -380,7 +430,7 @@ export default function Home() {
         return { ...category, websites: filteredSites };
       })
       .filter(category => category.websites.length > 0);
-  }, [searchTerm]);
+  }, [deferredSearchTerm]);
 
   // Memoized website count
   const websiteCount = useMemo(() => {
@@ -424,23 +474,7 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "BdGovLinks - Bangladesh Government Website Directory",
-            "url": "https://bdgovlinks.com",
-            "description": "Unofficial directory of Bangladesh government websites. Find all government services, ministries, and public services in one place.",
-            "keywords": "Bangladesh government websites, Bangladesh government directory, government services Bangladesh, Bangladesh public services",
-            "inLanguage": "en",
-            "publisher": {
-              "@type": "Organization",
-              "name": "BdGovLinks",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://bdgovlinks.com/logo.png"
-              }
-            }
-          })
+          __html: structuredData
         }}
       />
       

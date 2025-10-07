@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
-import PerformanceMonitor from "@/components/PerformanceMonitor";
+import PerformanceMonitorLoader from "@/components/PerformanceMonitorLoader";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -95,7 +95,7 @@ export default function RootLayout({
       >
         <LanguageProvider>
           {children}
-          <PerformanceMonitor />
+          <PerformanceMonitorLoader />
         </LanguageProvider>
       </body>
     </html>

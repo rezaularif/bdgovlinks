@@ -80,8 +80,9 @@ export default function PerformanceMonitor() {
 
   // Log metrics to console for debugging (remove in production)
   useEffect(() => {
-    if (Object.values(metrics).some(val => val !== null)) {
-      console.log('Performance Metrics:', metrics);
+    if (process.env.NODE_ENV === "production") return;
+    if (Object.values(metrics).some((val) => val !== null)) {
+      console.log("Performance Metrics:", metrics);
     }
   }, [metrics]);
 
