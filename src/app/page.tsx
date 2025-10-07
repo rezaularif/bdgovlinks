@@ -305,7 +305,7 @@ const WebsiteItem = ({ website }: { website: { name: string; url: string } }) =>
         href={website.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/40 transition-colors"
+        className="flex items-center gap-3 p-2 rounded-md transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
       >
         <img
           src={iconSrc}
@@ -317,7 +317,7 @@ const WebsiteItem = ({ website }: { website: { name: string; url: string } }) =>
             target.src = '/site-icons/fall_back-favicon.png';
           }}
         />
-        <span className="text-foreground flex-grow text-sm">
+        <span className="flex-grow truncate text-sm font-medium text-foreground">
           {website.name}
         </span>
       </a>
@@ -331,13 +331,13 @@ const CategoryCard = ({ category }: { category: typeof governmentWebsites[0] }) 
 
   return (
     <Card className={cn(
-      "flex flex-col h-full transition-all duration-200 overflow-hidden",
+      "group flex flex-col h-full overflow-hidden transition-all duration-200",
       "rounded-xl border border-border/70 bg-gradient-to-br from-primary/5 via-background to-secondary/5",
-      "shadow-sm hover:shadow"
+      "shadow-sm hover:-translate-y-1 hover:shadow-md"
     )}>
       <CardHeader className="pb-3">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-green-100 text-green-600 border border-green-200 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border border-primary/20 bg-primary/15 text-primary flex items-center justify-center transition-colors duration-200 group-hover:bg-primary/20">
             {category.icon}
           </div>
           <CardTitle className="text-lg font-semibold">
@@ -479,7 +479,7 @@ export default function Home() {
       />
       
       {/* Header with scroll effect */}
-      <header className={`sticky top-0 z-50 bg-background border-b`}>
+      <header className="sticky top-0 z-50 border-b border-border/80 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-3">
@@ -495,21 +495,23 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8 sm:py-12 relative">
+      <div className="container mx-auto px-4 pb-8 sm:pb-12 pt-0 sm:pt-0 relative before:absolute before:inset-x-0 before:top-0 before:h-[26rem] before:-z-10 before:bg-gradient-to-b before:from-primary/10 before:via-background/0 before:to-transparent before:content-['']">
         <HeroParticles />
-        <div className="text-center mb-10 sm:mb-16 pt-4 sm:pt-8 relative z-10">
-          <div className="inline-flex items-center justify-center p-3 sm:p-4 rounded-full bg-primary/10 mb-6 sm:mb-8 shadow-lg">
-            <BangladeshFlagIcon className="h-10 w-10 sm:h-12 sm:w-12" />
+        <div className="text-center mb-10 sm:mb-16 pt-4 sm:pt-8 relative z-10 overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(16,122,74,0.1),_transparent_65%)] after:absolute after:inset-x-0 after:-bottom-12 after:h-20 after:bg-gradient-to-t after:from-background after:to-transparent after:opacity-80 after:content-[''] after:z-0">
+          <div className="relative z-10">
+            <div className="inline-flex items-center justify-center p-3 sm:p-4 rounded-full bg-primary/10 mb-6 sm:mb-8 shadow-lg">
+              <BangladeshFlagIcon className="h-10 w-10 sm:h-12 sm:w-12" />
+            </div>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4 sm:mb-6 tracking-tight">
+              {t('title')}
+            </h1>
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold text-primary mb-6 sm:mb-8">
+              {t('subtitle')}
+            </h2>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl sm:max-w-4xl mx-auto px-4 leading-relaxed">
+              {t('description')}
+            </p>
           </div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4 sm:mb-6 tracking-tight">
-            {t('title')}
-          </h1>
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold text-primary mb-6 sm:mb-8">
-            {t('subtitle')}
-          </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl sm:max-w-4xl mx-auto px-4 leading-relaxed">
-            {t('description')}
-          </p>
         </div>
 
         <div className="max-w-2xl sm:max-w-3xl mx-auto mb-10 sm:mb-14">
@@ -536,7 +538,7 @@ export default function Home() {
             <p className="text-muted-foreground text-sm sm:text-base">{t('tryAdjustingSearch')}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-fr xl:grid-cols-3 sm:gap-6 mb-12 sm:mb-16">
             {filteredWebsites.map((category, index) => (
               <div
                 key={index}
@@ -578,20 +580,20 @@ export default function Home() {
       </div>
       
       {/* Footer with improved layout and solid background */}
-      <footer className="border-t border-border bg-background">
-        <div className="container mx-auto px-4 py-6">
+      <footer className="relative border-t border-border bg-background before:absolute before:inset-x-0 before:top-0 before:h-12 before:content-[''] before:bg-gradient-to-b before:from-primary/10 before:via-background before:to-transparent">
+        <div className="container relative z-10 mx-auto px-4 py-6">
           <div className="flex flex-col md:grid md:grid-cols-2 gap-4 items-center">
             {/* Language switcher - on top for mobile, right for desktop */}
             <div className="order-1 md:order-2 flex justify-center md:justify-end">
-              <div className="inline-flex items-center rounded-full border border-border bg-card p-0.5">
+              <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 p-0.5 backdrop-blur-sm shadow-sm">
                 <button
                   aria-label="Switch to English"
                   onClick={() => setLanguage('en')}
                   className={cn(
-                    "px-3 sm:px-4 py-1.5 text-xs sm:text-sm rounded-full transition-colors",
+                    "px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium rounded-full transition-colors",
                     language === 'en'
                       ? "text-primary border border-primary/30 bg-primary/5"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
+                      : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
                   )}
                 >
                   {t('english')}
@@ -600,10 +602,10 @@ export default function Home() {
                   aria-label="Switch to Bangla"
                   onClick={() => setLanguage('bn')}
                   className={cn(
-                    "px-3 sm:px-4 py-1.5 text-xs sm:text-sm rounded-full transition-colors",
+                    "px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium rounded-full transition-colors",
                     language === 'bn'
                       ? "text-primary border border-primary/30 bg-primary/5"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
+                      : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
                   )}
                 >
                   {t('bangla')}
