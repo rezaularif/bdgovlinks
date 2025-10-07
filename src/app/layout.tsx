@@ -89,6 +89,11 @@ export default function RootLayout({
         {/* Preload critical resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="fc54d9bb-b60c-4815-9bfd-a1a467cacb50"
+        ></script>
       </head>
       <body
         className={`${plusJakartaSans.variable} antialiased`}
