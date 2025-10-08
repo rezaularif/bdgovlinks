@@ -2,7 +2,7 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import React from 'react'
-import { ImageResponse } from 'next/og.js'
+import { ImageResponse } from '@vercel/og'
 
 const size = { width: 1200, height: 630 }
 
