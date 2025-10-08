@@ -49,7 +49,7 @@
         </div>
       </div>
 
-      <div class="mx-auto mb-10 max-w-2xl sm:mb-14 sm:max-w-3xl">
+      <div class="mx-auto mb-10 mt-6 max-w-2xl sm:mb-14 sm:mt-10 sm:max-w-3xl">
         <div class="group relative">
           <SearchIcon
             class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground transition-colors duration-200 group-hover:text-foreground sm:left-5 sm:h-5 sm:w-5"
