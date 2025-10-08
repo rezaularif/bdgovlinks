@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BdGovLinks · Bangladesh Government Directory
+
+BdGovLinks is an unofficial directory that helps residents quickly discover official Bangladesh government websites.  
+The project now runs on **Nuxt 3 + Vue 3 + TypeScript**, styled with **Tailwind CSS** and optimised for fast initial loads.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The dev server runs at [http://localhost:3000](http://localhost:3000). Nuxt provides hot-module replacement, so any change to a page or component is immediately reflected in the browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command          | Description                                                |
+| ---------------- | ---------------------------------------------------------- |
+| `pnpm dev`       | Start the Nuxt development server with HMR                 |
+| `pnpm build`     | Create the production build (`.nuxt` + `.output`)          |
+| `pnpm preview`   | Preview the built site locally (`node .output/server`)     |
+| `pnpm fetch:favicons` | Refresh the cached government website favicons        |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app.vue                 # Root app shell, mounts pages and global monitors
+pages/index.vue         # Home directory view
+components/             # Vue components (client-only utilities, icons, etc.)
+composables/            # Reusable Nuxt/Vue composables (e.g. language switcher)
+assets/css/tailwind.css # Tailwind setup + design tokens
+utils/                  # Translation data, favicon maps, helpers
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Static assets (favicons, Open Graph images, manifest) live under `public/`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tooling & Conventions
 
-## Deploy on Vercel
+- **Styling** – Tailwind utility classes with a small set of design tokens in `assets/css/tailwind.css`.
+- **Icons** – [`lucide-vue-next`](https://github.com/lucide-icons/lucide) for consistent SVG icons.
+- **Language Support** – Centralised via the `useLanguage` composable and translation catalog under `utils/`.
+- **Performance Monitors** – Client-only hooks deferred until after render to keep the critical path lean.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploying
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. `pnpm install`
+2. `pnpm build`
+3. Deploy the generated `.output` directory (Nitro node-server preset) to your preferred host.  
+   For Node hosting: `node .output/server/index.mjs`.
+
+For more Nuxt guidance, see the [Nuxt docs](https://nuxt.com/docs/getting-started/introduction) and [Nitro deployment guide](https://nitro.build/deploy).
+
+---
+
+Made with ❤️ for the people of Bangladesh. Contributions and suggestions are always welcome!

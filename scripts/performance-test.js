@@ -15,7 +15,10 @@ console.log('🚀 Performance Testing for Bangladesh Directory Website\n');
 console.log('📦 Test 1: Build Performance');
 try {
   console.time('Build Time');
-  execSync('npm run build', { stdio: 'inherit' });
+  const pnpmLock = path.join(process.cwd(), 'pnpm-lock.yaml');
+  const yarnLock = path.join(process.cwd(), 'yarn.lock');
+  const packageManager = fs.existsSync(pnpmLock) ? 'pnpm' : fs.existsSync(yarnLock) ? 'yarn' : 'npm';
+  execSync(`${packageManager} run build`, { stdio: 'inherit' });
   console.timeEnd('Build Time');
   console.log('✅ Build completed successfully\n');
 } catch (error) {
@@ -26,11 +29,16 @@ try {
 // Test 2: Bundle size analysis
 console.log('📊 Test 2: Bundle Size Analysis');
 try {
-  const buildDir = path.join(process.cwd(), '.next');
-  
-  if (fs.existsSync(buildDir)) {
+  const nuxtClientDir = path.join(process.cwd(), '.nuxt', 'dist', 'client');
+  const nitroPublicDir = path.join(process.cwd(), '.output', 'public', '_nuxt');
+  const bundleRoot = fs.existsSync(nuxtClientDir)
+    ? nuxtClientDir
+    : fs.existsSync(nitroPublicDir)
+      ? nitroPublicDir
+      : null;
+
+  if (bundleRoot) {
     const analyzeBundle = () => {
-      const staticDir = path.join(buildDir, 'static');
       let totalSize = 0;
       let fileCount = 0;
 
@@ -49,13 +57,13 @@ try {
             
             // Log large files (> 100KB)
             if (size > 100 * 1024) {
-              console.log(`  📁 ${path.relative(buildDir, filePath)}: ${(size / 1024).toFixed(2)} KB`);
+              console.log(`  📁 ${path.relative(bundleRoot, filePath)}: ${(size / 1024).toFixed(2)} KB`);
             }
           }
         });
       };
 
-      walkDir(staticDir);
+      walkDir(bundleRoot);
       
       console.log(`\n📈 Bundle Statistics:`);
       console.log(`   Total Files: ${fileCount}`);
@@ -107,7 +115,7 @@ console.log(`   Heap Used: ${(memoryUsage.heapUsed / 1024 / 1024).toFixed(2)} MB
 
 console.log('\n🎉 Performance testing completed!');
 console.log('\n📋 Next Steps:');
-console.log('   1. Run the application: npm run dev');
-console.log('   2. Open Chrome DevTools to check Performance tab');
-console.log('   3. Use Lighthouse for real performance metrics');
-console.log('   4. Monitor console for performance logs from PerformanceMonitor');
+console.log('   1. Run the application with your package manager (e.g. pnpm dev)');
+console.log('   2. Open Chrome DevTools → Performance for a real trace');
+console.log('   3. Use Lighthouse for lab metrics');
+console.log('   4. Monitor browser console for performance logs from PerformanceMonitor');

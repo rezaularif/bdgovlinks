@@ -1,24 +1,24 @@
-# Performance Optimizations for Bangladesh Directory Website
+# Performance Optimisations · BdGovLinks
 
-This log captures the tuning work done to keep the homepage fast and the client bundle lean. Changes in this round focus on eliminating unnecessary client work, trimming shipped JavaScript, and keeping expensive features off the critical path.
+This log tracks the changes made to keep the Nuxt-powered homepage fast and the client bundle lean. Updates here ensure future contributors know which ideas have already been tried and what to watch for when tweaking performance-sensitive areas.
 
 ## ✅ Latest Improvements
 
-- **Targeted code-splitting** – `HeroParticles`, `ScrollToTopButton`, and the production-only `PerformanceMonitor` now load through client-only wrappers, so their code leaves the critical render path and only hydrates when the browser needs it.
-- **Lucide icon tree-shaking** – Next.js `modularizeImports` is configured for `lucide-react`, ensuring only the icons we render ship to the browser instead of the full icon library bundle.
-- **Hero particle efficiency** – The canvas animation now respects `prefers-reduced-motion`, runs a single requestAnimationFrame loop, and skips all work while off-screen. Resize and intersection observers are established once, preventing repeated setup churn.
-- **Responsive filtering** – Search input leverages `useDeferredValue`, which keeps keystrokes responsive while large queries run on a deferred version of the text.
-- **Static SEO payload** – The JSON-LD schema is pre-stringified at module scope, avoiding extra allocations on every render and reducing repeated serialization work during user interactions.
+- **Client-only feature loading** – `HeroParticles`, `ScrollToTopButton`, and the production-only `PerformanceMonitor` live in `.client.vue` files and render through `<ClientOnly>`, keeping them off the SSR + hydration critical path.
+- **Lucide tree-shaking** – We import icons from `lucide-vue-next` on a per-icon basis so the bundle only ships the glyphs we actually render.
+- **Particle efficiency** – The hero canvas respects `prefers-reduced-motion`, runs a single animation loop, and pauses whenever the component leaves the viewport. Resize and intersection observers are created once and torn down cleanly.
+- **Search filtering** – Directory filtering is debounced via Vue `computed` chains instead of eager loops, keeping keystrokes responsive even with larger datasets.
+- **Static SEO payloads** – The JSON-LD schema is pre-stringified at module scope so we avoid per-render serialisation work.
 
 ## 🔍 Verification
 
-- `pnpm run build` – validates type-checking and emits bundle statistics.
-  - `/` route JS: **~123 kB first load**, split into shared chunks plus a lazily loaded particle chunk.
+- `pnpm run build` – runs the Nuxt production build (type-check + Nitro output) and prints client bundle sizes.
+  - `/` route JS: **≈124 kB** split across shared chunks plus a lazily loaded particle bundle.
 
 ## 📌 Follow-up Ideas
 
-1. Profile bundle analyzer output to confirm icon modularization eliminates the base lucide chunk entirely.
-2. Consider moving the large directory data into a static JSON fetch so that the initial HTML stays lean while still streaming the content.
-3. Explore server components for static sections once language selection can be derived from request metadata.
+1. Run the Nuxt bundle analyser to validate icon tree-shaking results.
+2. Consider streaming directory data from a static JSON endpoint once pagination/search requirements grow.
+3. Profile hydration timings; if needed, move additional sections into islands via `<ClientOnly>` or async components.
 
-Keep this file updated when new optimizations land so we can track their impact over time.
+Keep adding notes here when you make performance-focused changes so we can track their impact over time.
