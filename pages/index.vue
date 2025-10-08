@@ -31,13 +31,19 @@
           <div class="mb-6 inline-flex items-center justify-center rounded-full bg-primary/10 p-3 shadow-lg sm:mb-8 sm:p-4">
             <BangladeshFlagIcon class="h-10 w-10 sm:h-12 sm:w-12" />
           </div>
-          <h1 class="mb-4 text-3xl font-bold tracking-tight text-foreground sm:mb-6 sm:text-5xl md:text-6xl">
+          <h1
+            class="mb-4 text-3xl font-bold leading-tight tracking-tight text-foreground text-balance sm:mb-6 sm:text-5xl md:text-6xl md:leading-[1.1]"
+          >
             {{ t('title') }}
           </h1>
-          <h2 class="mb-6 text-xl font-semibold text-primary sm:mb-8 sm:text-3xl md:text-4xl">
+          <h2
+            class="mb-6 text-lg font-semibold text-primary text-balance sm:mb-8 sm:text-3xl md:text-4xl"
+          >
             {{ t('subtitle') }}
           </h2>
-          <p class="mx-auto px-4 text-lg text-muted-foreground leading-relaxed sm:max-w-4xl sm:text-xl">
+          <p
+            class="mx-auto px-4 text-base leading-relaxed text-muted-foreground text-pretty sm:max-w-4xl sm:text-xl"
+          >
             {{ t('description') }}
           </p>
         </div>
@@ -70,64 +76,114 @@
         <h3 class="mb-2 text-lg font-semibold sm:text-xl">{{ t('noWebsitesFound') }}</h3>
         <p class="text-sm text-muted-foreground sm:text-base">{{ t('tryAdjustingSearch') }}</p>
       </div>
-      <div
-        v-else
-        class="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:auto-rows-fr lg:grid-cols-3 xl:grid-cols-3 sm:mb-16"
-      >
-        <div
-          v-for="category in filteredWebsites"
-          :key="category.category"
-          :class="['h-full', category.category === 'Administrative Directory' ? 'lg:col-span-2' : null]"
-        >
-          <div
-            class="group flex h-full flex-col overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-primary/5 via-background to-secondary/5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
+      <div v-else class="mb-12 space-y-6 sm:mb-16 md:space-y-8">
+        <div class="space-y-3 md:hidden">
+          <details
+            v-for="category in filteredWebsites"
+            :key="`mobile-${category.category}`"
+            class="group overflow-hidden rounded-xl border border-border/70 bg-gradient-to-b from-background/95 via-background to-secondary/5 shadow-sm transition-all duration-200 open:shadow-md"
           >
-            <div class="px-4 pb-3 pt-4">
-              <div class="flex items-center gap-3">
-                <div
-                  class="flex h-8 w-8 items-center justify-center rounded-full border border-primary/20 bg-primary/15 text-primary transition-colors duration-200 group-hover:bg-primary/20"
+            <summary
+              class="flex cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left text-sm font-semibold text-foreground transition-colors marker:hidden hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+            >
+              <span class="flex items-center gap-3">
+                <span
+                  class="flex h-8 w-8 items-center justify-center rounded-full border border-primary/20 bg-primary/12 text-primary"
                 >
                   <component :is="category.icon" class="h-5 w-5" />
-                </div>
-                <h3 class="text-lg font-semibold">
+                </span>
+                <span class="text-base">
                   {{ t(`categories.${category.category}`) }}
-                </h3>
-              </div>
-            </div>
-            <div class="flex-grow px-4 pb-4">
+                </span>
+              </span>
+              <ChevronDown
+                class="h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+              />
+            </summary>
+            <div class="border-t border-border/70 bg-background/90 px-4 pb-4 pt-3">
               <ul class="space-y-2">
                 <li v-for="website in category.websites" :key="website.url">
                   <a
                     :href="website.url"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                    class="flex items-start gap-3 rounded-lg px-2 py-2.5 text-left transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                   >
                     <img
                       :src="getLocalIconPath(website.url)"
                       alt="site icon"
-                      class="h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
+                      class="mt-0.5 h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
                       loading="lazy"
                       @error="onIconError"
                     />
-                    <span class="flex-grow truncate text-sm font-medium text-foreground">
+                    <span class="flex-grow text-sm font-medium text-foreground leading-snug">
                       {{ website.name }}
                     </span>
                   </a>
                 </li>
               </ul>
             </div>
+          </details>
+        </div>
+
+        <div
+          class="hidden grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:auto-rows-fr lg:grid-cols-3 xl:grid-cols-3 md:grid"
+        >
+          <div
+            v-for="category in filteredWebsites"
+            :key="category.category"
+            :class="['h-full', category.category === 'Administrative Directory' ? 'lg:col-span-2' : null]"
+          >
+            <div
+              class="group flex h-full flex-col overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-primary/5 via-background to-secondary/5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
+            >
+              <div class="px-4 pb-3 pt-4">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full border border-primary/20 bg-primary/15 text-primary transition-colors duration-200 group-hover:bg-primary/20"
+                  >
+                    <component :is="category.icon" class="h-5 w-5" />
+                  </div>
+                  <h3 class="text-lg font-semibold">
+                    {{ t(`categories.${category.category}`) }}
+                  </h3>
+                </div>
+              </div>
+              <div class="flex-grow px-4 pb-4">
+                <ul class="space-y-2">
+                  <li v-for="website in category.websites" :key="website.url">
+                    <a
+                      :href="website.url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                    >
+                      <img
+                        :src="getLocalIconPath(website.url)"
+                        alt="site icon"
+                        class="h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
+                        loading="lazy"
+                        @error="onIconError"
+                      />
+                      <span class="flex-grow truncate text-sm font-medium text-foreground">
+                        {{ website.name }}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="mt-10 text-center sm:mt-16">
-        <div class="mb-6 inline-flex flex-wrap justify-center gap-3 sm:mb-8 sm:gap-4">
+        <div class="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
           <a
             href="https://form.jotform.com/252802295373055"
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground shadow-sm transition-colors hover:border-primary hover:bg-primary/5 sm:px-6 sm:py-3 sm:text-base"
+            class="w-full rounded-full border border-border bg-background px-4 py-2 text-center text-sm text-foreground shadow-sm transition-colors hover:border-primary hover:bg-primary/5 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
           >
             {{ t('reportBrokenLink') }}
           </a>
@@ -135,7 +191,7 @@
             href="https://form.jotform.com/252802295373055"
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground shadow-sm transition-colors hover:border-primary hover:bg-primary/5 sm:px-6 sm:py-3 sm:text-base"
+            class="w-full rounded-full border border-border bg-background px-4 py-2 text-center text-sm text-foreground shadow-sm transition-colors hover:border-primary hover:bg-primary/5 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
           >
             {{ t('suggestNewWebsite') }}
           </a>
@@ -211,6 +267,7 @@ import {
   Building,
   Calendar,
   Car,
+  ChevronDown,
   FileText,
   Globe,
   GraduationCap,
