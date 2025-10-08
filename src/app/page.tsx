@@ -437,13 +437,6 @@ export default function Home() {
     return filteredWebsites.reduce((acc, category) => acc + category.websites.length, 0);
   }, [filteredWebsites]);
 
-  // Function to handle opening email with subject
-  const handleEmailClick = (subject: string) => {
-    const email = "support@bdgovlinks.com";
-    const body = "";
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
-
   // Don't render scroll-dependent elements until client-side hydration is complete
   if (!isClient) {
     return (
@@ -555,19 +548,31 @@ export default function Home() {
 
         <div className="mt-10 sm:mt-16 text-center">
           <div className="inline-flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="rounded-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base"
-              onClick={() => handleEmailClick(t('reportBrokenLink'))}
+              asChild
             >
-              {t('reportBrokenLink')}
+              <a
+                href="https://form.jotform.com/252802295373055"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t('reportBrokenLink')}
+              </a>
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="rounded-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base"
-              onClick={() => handleEmailClick(t('suggestNewWebsite'))}
+              asChild
             >
-              {t('suggestNewWebsite')}
+              <a
+                href="https://form.jotform.com/252802295373055"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t('suggestNewWebsite')}
+              </a>
             </Button>
             
           </div>
