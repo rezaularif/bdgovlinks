@@ -127,17 +127,17 @@
         </div>
 
         <div
-        class="hidden flex flex-wrap gap-4 sm:gap-6 lg:gap-6 md:flex"
+        class="hidden md:flex md:flex-wrap gap-4 sm:gap-6 lg:gap-6"
         >
           <div
             v-for="category in filteredWebsites"
             :key="category.category"
             class="h-full w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-1rem)]"
           >
-            <div
-              class="group flex h-full flex-col overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-primary/5 via-background to-secondary/5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
-            >
-              <div class="px-4 pb-3 pt-4">
+              <div
+                class="group flex h-full flex-col overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-primary/5 via-background to-secondary/5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
+              >
+              <div class="px-4 pb-3 pt-4 flex-none">
                 <div class="flex items-center gap-3">
                   <div
                     class="flex h-8 w-8 items-center justify-center rounded-full border border-primary/20 bg-primary/15 text-primary transition-colors duration-200 group-hover:bg-primary/20"
@@ -149,8 +149,8 @@
                   </h3>
                 </div>
               </div>
-              <div class="flex-grow px-4 pb-4">
-                <ul class="space-y-2">
+              <div class="flex-grow px-4 pb-4 min-h-0">
+                <ul class="space-y-2 max-h-[280px] overflow-y-auto pr-1 custom-scrollbar">
                   <li v-for="website in category.websites" :key="website.url">
                     <a
                       :href="website.url"
