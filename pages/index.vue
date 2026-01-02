@@ -109,12 +109,10 @@
                     rel="noopener noreferrer"
                     class="flex items-start gap-3 rounded-lg px-2 py-2.5 text-left transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                   >
-                    <img
+                    <LazyIcon
                       :src="website.iconPath"
                       alt="site icon"
-                      class="mt-0.5 h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
-                      loading="lazy"
-                      @error="onIconError"
+                      class-name="mt-0.5 h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
                     />
                     <span class="flex-grow text-sm font-medium text-foreground leading-snug">
                       {{ website.name }}
@@ -158,12 +156,10 @@
                       rel="noopener noreferrer"
                       class="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                     >
-                      <img
+                      <LazyIcon
                         :src="website.iconPath"
                         alt="site icon"
-                        class="h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
-                        loading="lazy"
-                        @error="onIconError"
+                        class-name="h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
                       />
                       <span class="flex-grow truncate text-sm font-medium text-foreground">
                         {{ website.name }}
@@ -295,6 +291,7 @@ import { computed, ref } from 'vue';
 
 import BangladeshFlagIcon from '~/components/BangladeshFlagIcon.vue';
 import HeroParticles from '~/components/HeroParticles.client.vue';
+import LazyIcon from '~/components/LazyIcon.vue';
 import ScrollToTopButton from '~/components/ScrollToTopButton.client.vue';
 import SearchIcon from '~/components/SearchIcon.vue';
 import { useLanguage } from '~/composables/useLanguage';
@@ -703,13 +700,6 @@ useHead({
 });
 
 const searchTerm = ref('');
-
-const onIconError = (event: Event) => {
-  const target = event.target as HTMLImageElement | null;
-  if (target) {
-    target.src = '/site-icons/fall_back-favicon.png';
-  }
-};
 
 const filteredWebsites = computed(() => {
   const rawTerm = searchTerm.value.trim();

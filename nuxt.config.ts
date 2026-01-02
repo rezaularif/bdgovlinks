@@ -123,6 +123,18 @@ export default defineNuxtConfig({
           href: 'https://fonts.gstatic.com',
           crossorigin: '',
         },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap',
+          media: 'print',
+          onload: "this.media='all'",
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap',
+          media: 'print',
+          onload: "this.media='all'",
+        },
       ],
       script: [
         {
