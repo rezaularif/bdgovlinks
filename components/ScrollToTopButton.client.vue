@@ -4,7 +4,7 @@
     aria-label="Scroll to top"
     @click="scrollToTop"
     :class="[
-      'fixed right-4 bottom-24 sm:bottom-10 md:bottom-6 z-50 rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 p-3 sm:p-3.5',
+      'fixed right-4 bottom-24 sm:bottom-10 md:bottom-6 z-50 rounded-full bg-gradient-to-b from-primary to-primary/90 text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 hover:scale-105 hover:shadow-xl hover:shadow-primary/25',
       show
         ? 'opacity-100 translate-y-0'
         : 'opacity-0 translate-y-2 pointer-events-none',

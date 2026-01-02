@@ -49,7 +49,7 @@
         </div>
       </div>
 
-      <div class="mx-auto mb-10 mt-6 max-w-2xl sm:mb-14 sm:mt-10 sm:max-w-3xl">
+        <div class="mb-10 mx-auto mt-6 max-w-2xl sm:mb-14 sm:mt-10 sm:max-w-3xl">
         <div class="group relative">
           <SearchIcon
             class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground transition-colors duration-200 group-hover:text-foreground sm:left-5 sm:h-5 sm:w-5"
@@ -58,7 +58,7 @@
             v-model="searchTerm"
             :placeholder="t('searchPlaceholder')"
             type="search"
-            class="w-full rounded-xl border border-border bg-background/90 py-3.5 pl-11 pr-4 text-sm text-foreground shadow-[0_6px_16px_-8px_rgba(16,122,74,0.18)] transition-all duration-200 placeholder:text-muted-foreground/70 focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/30 sm:py-4 sm:pl-12 sm:text-base"
+            class="w-full rounded-xl border border-border/70 bg-background/95 py-3.5 pl-11 pr-4 text-sm text-foreground shadow-[0_4px_20px_-4px_rgba(16,122,74,0.15),0_2px_8px_-2px_rgba(16,122,74,0.08)] transition-all duration-200 placeholder:text-muted-foreground/70 focus:border-primary/50 focus:outline-none focus:ring-4 focus:ring-primary/10 sm:py-4 sm:pl-12 sm:text-base"
           />
         </div>
       </div>
@@ -81,14 +81,14 @@
           <details
             v-for="category in filteredWebsites"
             :key="`mobile-${category.category}`"
-            class="group overflow-hidden rounded-xl border border-border/70 bg-gradient-to-b from-background/95 via-background to-secondary/5 shadow-sm transition-all duration-200 open:shadow-md"
+            class="group overflow-hidden rounded-xl border border-border/70 bg-gradient-to-b from-background via-background to-primary/[0.02] shadow-sm transition-all duration-200 open:shadow-md"
           >
             <summary
               class="flex cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left text-sm font-semibold text-foreground transition-colors marker:hidden hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
             >
               <span class="flex items-center gap-3">
                 <span
-                  class="flex h-8 w-8 items-center justify-center rounded-full border border-primary/20 bg-primary/12 text-primary"
+                  class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/15 text-primary"
                 >
                   <component :is="category.icon" class="h-5 w-5" />
                 </span>
@@ -101,20 +101,20 @@
               />
             </summary>
             <div class="border-t border-border/70 bg-background/90 px-4 pb-4 pt-3">
-              <ul class="space-y-2">
+              <ul class="space-y-1.5">
                 <li v-for="website in category.websites" :key="website.url">
                   <a
                     :href="website.url"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="flex items-start gap-3 rounded-lg px-2 py-2.5 text-left transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                    class="flex items-center gap-3 rounded-lg px-2.5 py-2.5 text-left transition-all duration-150 hover:bg-primary/5 hover:translate-x-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                   >
                     <LazyIcon
                       :src="website.iconPath"
                       alt="site icon"
-                      class-name="mt-0.5 h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
+                      class-name="h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
                     />
-                    <span class="flex-grow text-sm font-medium text-foreground leading-snug">
+                    <span class="flex-grow text-sm font-medium text-foreground">
                       {{ website.name }}
                     </span>
                   </a>
@@ -125,7 +125,7 @@
         </div>
 
         <div
-        class="hidden md:flex md:flex-wrap gap-4 sm:gap-6 lg:gap-6"
+        class="hidden md:flex md:flex-wrap gap-4 sm:gap-5 lg:gap-5"
         >
           <div
             v-for="category in filteredWebsites"
@@ -133,28 +133,28 @@
             class="h-full w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-1rem)]"
           >
               <div
-                class="group flex h-full flex-col overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-primary/5 via-background to-secondary/5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
+                class="group flex h-full flex-col overflow-hidden rounded-xl border border-border/60 bg-gradient-to-br from-background via-background to-primary/[0.02] shadow-[0_2px_8px_-4px_rgba(0,0,0,0.06),0_4px_16px_-8px_rgba(16,122,74,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(16,122,74,0.12),0_4px_12px_-6px_rgba(16,122,74,0.08)]"
               >
               <div class="px-4 pb-3 pt-4 flex-none">
                 <div class="flex items-center gap-3">
                   <div
-                    class="flex h-8 w-8 items-center justify-center rounded-full border border-primary/20 bg-primary/15 text-primary transition-colors duration-200 group-hover:bg-primary/20"
+                    class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/15 text-primary transition-all duration-200 group-hover:scale-105 group-hover:bg-primary/15"
                   >
                     <component :is="category.icon" class="h-5 w-5" />
                   </div>
-                  <h3 class="text-lg font-semibold">
+                  <h3 class="text-lg font-semibold text-foreground">
                     {{ t(`categories.${category.category}`) }}
                   </h3>
                 </div>
               </div>
               <div class="flex-grow px-4 pb-4 min-h-0">
-                <ul class="space-y-2 max-h-[280px] overflow-y-auto pr-1 custom-scrollbar">
+                <ul class="space-y-1.5 max-h-[280px] overflow-y-auto pr-1.5 custom-scrollbar">
                   <li v-for="website in category.websites" :key="website.url">
                     <a
                       :href="website.url"
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                      class="flex items-center gap-3 rounded-lg px-2.5 py-2 transition-all duration-150 hover:bg-primary/5 hover:translate-x-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                     >
                       <LazyIcon
                         :src="website.iconPath"
@@ -179,7 +179,7 @@
             href="https://form.jotform.com/252802295373055"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full rounded-full border border-border bg-background px-4 py-2 text-center text-sm text-foreground shadow-sm transition-colors hover:border-primary hover:bg-primary/5 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
+            class="w-full rounded-full border border-border/70 bg-gradient-to-b from-background to-primary/[0.02] px-4 py-2.5 text-center text-sm font-medium text-foreground shadow-[0_2px_4px_-2px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-primary/5 hover:shadow-[0_4px_8px_-4px_rgba(16,122,74,0.1)] sm:w-auto sm:px-6 sm:py-3 sm:text-base"
           >
             {{ t('reportBrokenLink') }}
           </a>
@@ -187,7 +187,7 @@
             href="https://form.jotform.com/252802295373055"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full rounded-full border border-border bg-background px-4 py-2 text-center text-sm text-foreground shadow-sm transition-colors hover:border-primary hover:bg-primary/5 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
+            class="w-full rounded-full border border-border/70 bg-gradient-to-b from-background to-primary/[0.02] px-4 py-2.5 text-center text-sm font-medium text-foreground shadow-[0_2px_4px_-2px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-primary/5 hover:shadow-[0_4px_8px_-4px_rgba(16,122,74,0.1)] sm:w-auto sm:px-6 sm:py-3 sm:text-base"
           >
             {{ t('suggestNewWebsite') }}
           </a>
@@ -209,15 +209,15 @@
       <div class="container relative z-10 mx-auto px-4 py-6">
         <div class="flex flex-col items-center gap-4 md:grid md:grid-cols-2">
           <div class="order-1 flex justify-center md:order-2 md:justify-end">
-            <div class="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 p-0.5 shadow-sm backdrop-blur-sm">
+            <div class="inline-flex items-center rounded-full border border-primary/20 bg-gradient-to-b from-primary/5 to-primary/10 p-0.5 shadow-sm backdrop-blur-sm">
               <button
                 type="button"
                 aria-label="Switch to English"
                 @click="setLanguage('en')"
                 :class="[
-                  'rounded-full px-3 py-1.5 text-xs font-medium transition-colors sm:px-4 sm:text-sm',
+                  'rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 sm:px-4 sm:text-sm',
                   language === 'en'
-                    ? 'border border-primary/30 bg-primary/5 text-primary'
+                    ? 'border border-primary/30 bg-primary text-primary-foreground shadow-sm'
                     : 'text-muted-foreground hover:bg-primary/5 hover:text-foreground',
                 ]"
               >
@@ -228,9 +228,9 @@
                 aria-label="Switch to Bangla"
                 @click="setLanguage('bn')"
                 :class="[
-                  'rounded-full px-3 py-1.5 text-xs font-medium transition-colors sm:px-4 sm:text-sm',
+                  'rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 sm:px-4 sm:text-sm',
                   language === 'bn'
-                    ? 'border border-primary/30 bg-primary/5 text-primary'
+                    ? 'border border-primary/30 bg-primary text-primary-foreground shadow-sm'
                     : 'text-muted-foreground hover:bg-primary/5 hover:text-foreground',
                 ]"
               >

@@ -39,6 +39,14 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
     --font-plus-jakarta-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+    /* Enhanced color palette for facelift */
+    --primary-light: 120 85% 45%;
+    --primary-dark: 120 100% 20%;
+    --success: 145 63% 42%;
+    --accent-warm: 25 95% 55%;
+    --surface-muted: 0 0% 98%;
+    --shadow-glow: 0 0% 0%;
   }
 
   .dark {
@@ -74,6 +82,14 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Enhanced color palette for facelift - Dark mode */
+    --primary-light: 120 85% 55%;
+    --primary-dark: 120 100% 25%;
+    --success: 145 63% 50%;
+    --accent-warm: 25 95% 60%;
+    --surface-muted: 0 0% 12%;
+    --shadow-glow: 0 0% 0%;
   }
 }
 
@@ -143,5 +159,18 @@ a {
   .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+  }
+
+  /* Enhanced shadow utilities for facelift */
+  .shadow-glow-green {
+    box-shadow: 0 0 20px -5px hsl(120 100% 25% / 0.15), 0 8px 16px -8px hsl(120 100% 25% / 0.1);
+  }
+
+  .shadow-card-hover {
+    transition: all 0.2s ease;
+  }
+
+  .shadow-card-hover:hover {
+    box-shadow: 0 12px 24px -10px hsl(120 100% 25% / 0.12), 0 4px 8px -4px hsl(120 100% 25% / 0.08);
   }
 }
