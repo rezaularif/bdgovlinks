@@ -28,9 +28,8 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en',
       },
-      titleTemplate:
-        '%s | BdGovLinks - Bangladesh Government Website Directory',
-      title: 'BdGovLinks - Unofficial Directory of Bangladesh Government Websites',
+      titleTemplate: '%s',
+      title: 'BdGovLinks - Bangladesh Government Directory',
       meta: [
         { charset: 'utf-8' },
         {

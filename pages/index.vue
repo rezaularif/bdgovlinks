@@ -10,7 +10,7 @@
               <Landmark class="h-5 w-5 text-primary sm:h-6 sm:w-6" />
             </div>
             <div>
-              <h1 class="text-lg font-bold text-foreground sm:text-xl">BdGovLinks</h1>
+              <span class="text-lg font-bold text-foreground sm:text-xl">BdGovLinks</span>
               <p class="-mt-0.5 text-[0.65rem] text-muted-foreground sm:-mt-1 sm:text-xs">
                 {{ t('subtitle') }}
               </p>
