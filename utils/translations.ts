@@ -35,6 +35,10 @@ export const translations = {
       'Social Services': 'Social Services',
       'Planning and Development': 'Planning and Development',
       'Administrative Directory': 'Administrative Directory',
+      'Security and Defense': 'Security and Defense',
+      'Regulatory Commissions': 'Regulatory Commissions',
+      'Disaster and Emergency': 'Disaster and Emergency',
+      'Maritime and Ports': 'Maritime and Ports',
     },
   },
   bn: {
@@ -73,6 +77,10 @@ export const translations = {
       'Social Services': 'সামাজিক সেবা',
       'Planning and Development': 'পরিকল্পনা ও উন্নয়ন',
       'Administrative Directory': 'প্রশাসনিক ডিরেক্টরি',
+      'Security and Defense': 'নিরাপত্তা ও প্রতিরক্ষা',
+      'Regulatory Commissions': 'নিয়ন্ত্রক কমিশন',
+      'Disaster and Emergency': 'দুর্যোগ ও জরুরি সেবা',
+      'Maritime and Ports': 'সামুদ্রিক ও বন্দর',
     },
   },
 };

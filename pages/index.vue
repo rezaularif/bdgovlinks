@@ -127,12 +127,17 @@
         </div>
 
         <div
-          class="hidden grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:auto-rows-fr lg:grid-cols-3 xl:grid-cols-3 md:grid"
+        class="hidden grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 md:grid"
         >
           <div
             v-for="category in filteredWebsites"
             :key="category.category"
-            :class="['h-full', category.category === 'Administrative Directory' ? 'lg:col-span-2' : null]"
+            :class="[
+              'h-full',
+              category.category === 'Local Government' || category.category === 'Public Services' || category.category === 'Key Ministries'
+                ? 'xl:col-span-2'
+                : null
+            ]"
           >
             <div
               class="group flex h-full flex-col overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-primary/5 via-background to-secondary/5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
@@ -199,6 +204,9 @@
         <div class="mx-auto max-w-2xl px-2 text-xs text-muted-foreground sm:text-sm">
           <p>
             {{ t('directoryInfo') }}
+          </p>
+          <p class="mt-2 text-[0.7rem] sm:text-xs">
+            {{ language === 'bn' ? 'সর্বশেষ আপডেট: ২ জানুয়ারি ২০২৬' : 'Last updated: 2nd Jan 2026' }}
           </p>
         </div>
       </div>
@@ -281,6 +289,12 @@ import {
   Wallet,
   Zap,
 } from 'lucide-vue-next';
+import {
+  Shield,
+  Anchor,
+  AlertTriangle,
+  CheckCircle,
+} from 'lucide-vue-next';
 import type { Component } from 'vue';
 import { computed, ref } from 'vue';
 
@@ -349,6 +363,9 @@ const governmentWebsites: GovernmentCategory[] = [
       { name: 'Bangladesh Post Office', url: 'https://bdpost.gov.bd' },
       { name: 'Land Administration', url: 'https://landadministration.gov.bd' },
       { name: 'Teletalk Bangladesh', url: 'https://teletalk.com.bd' },
+      { name: 'Department of Immigration & Passports', url: 'https://dip.gov.bd' },
+      { name: 'Online Visa Portal', url: 'https://visa.gov.bd' },
+      { name: 'Bangladesh Customs', url: 'https://customs.gov.bd' },
     ],
   },
   {
@@ -361,6 +378,8 @@ const governmentWebsites: GovernmentCategory[] = [
       { name: 'Access to Information (a2i)', url: 'https://a2i.gov.bd' },
       { name: 'Bangladesh Computer Council', url: 'https://bcc.gov.bd' },
       { name: 'MyGov', url: 'https://mygov.bd' },
+      { name: 'National Dashboard', url: 'https://dashboard.gov.bd' },
+      { name: 'Government Gazette (DPP)', url: 'https://dpp.gov.bd' },
     ],
   },
   {
@@ -387,6 +406,8 @@ const governmentWebsites: GovernmentCategory[] = [
       { name: 'BEZA (Bangladesh Economic Zones Authority)', url: 'https://beza.gov.bd' },
       { name: 'BEPZA (Bangladesh Export Processing Zones Authority)', url: 'https://www.bepza.gov.bd' },
       { name: 'Bangladesh Steel & Engineering Corporation (BSEC)', url: 'https://bsec.gov.bd' },
+      { name: 'Bangladesh Trade Portal', url: 'https://bangladeshtradeportal.gov.bd' },
+      { name: 'Bangladesh Trade & Tariff Commission', url: 'https://btc.gov.bd' },
     ],
   },
   {
@@ -425,6 +446,9 @@ const governmentWebsites: GovernmentCategory[] = [
       { name: 'Forest Department', url: 'https://forest.gov.bd' },
       { name: 'BARC (Bangladesh Agricultural Research Council)', url: 'https://barc.gov.bd' },
       { name: 'BARI (Bangladesh Agricultural Research Institute)', url: 'https://bari.gov.bd' },
+      { name: 'Department of Fisheries', url: 'https://fisheries.gov.bd' },
+      { name: 'Department of Cooperatives', url: 'https://coop.gov.bd' },
+      { name: 'Bangladesh Water Development Board', url: 'https://bwdb.gov.bd' },
     ],
   },
   {
@@ -451,6 +475,8 @@ const governmentWebsites: GovernmentCategory[] = [
       { name: 'Bangladesh Bridge Authority', url: 'https://bridgeauthority.gov.bd' },
       { name: 'Bangladesh Inland Water Transport Authority', url: 'https://biwta.gov.bd' },
       { name: 'Roads and Highways Department', url: 'https://rhd.gov.bd' },
+      { name: 'Chittagong Port Authority', url: 'https://cpa.gov.bd' },
+      { name: 'Department of Shipping', url: 'https://dos.gov.bd' },
     ],
   },
   {
@@ -474,13 +500,17 @@ const governmentWebsites: GovernmentCategory[] = [
       { name: 'Barishal City Corporation', url: 'https://barcc.gov.bd' },
       { name: 'Sylhet City Corporation', url: 'https://scc.gov.bd' },
       { name: 'Gazipur City Corporation', url: 'https://gcc.gov.bd' },
+      { name: 'Rangpur City Corporation', url: 'https://rpcc.gov.bd' },
+      { name: 'Narayanganj City Corporation', url: 'https://ncc.gov.bd' },
+      { name: 'Comilla City Corporation', url: 'https://comillacc.gov.bd' },
+      { name: 'Mymensingh City Corporation', url: 'https://mymensinghcc.gov.bd' },
     ],
   },
   {
     category: 'Additional Ministries',
     icon: Building,
     websites: [
-      { name: 'Ministry of Public Administration', url: 'https://mpa.gov.bd' },
+      { name: 'Ministry of Public Administration', url: 'https://mopa.gov.bd' },
       {
         name: 'Ministry of Law, Justice and Parliamentary Affairs',
         url: 'https://minlaw.gov.bd',
@@ -489,6 +519,14 @@ const governmentWebsites: GovernmentCategory[] = [
       { name: 'Ministry of Water Resources', url: 'https://mowr.gov.bd' },
       { name: 'Ministry of Information and Broadcasting', url: 'https://moi.gov.bd' },
       { name: 'Ministry of Cultural Affairs', url: 'https://moca.gov.bd' },
+      { name: 'Ministry of Defence', url: 'https://mod.gov.bd' },
+      { name: 'Ministry of Shipping', url: 'https://mos.gov.bd' },
+      { name: 'Ministry of Food', url: 'https://mofood.gov.bd' },
+      { name: 'Ministry of Textiles & Jute', url: 'https://motj.gov.bd' },
+      { name: 'Ministry of Disaster Management & Relief', url: 'https://modmr.gov.bd' },
+      { name: 'Ministry of Expatriates Welfare', url: 'https://probashi.gov.bd' },
+      { name: 'Ministry of Science & Technology', url: 'https://most.gov.bd' },
+      { name: 'Ministry of Youth & Sports', url: 'https://moysports.gov.bd' },
     ],
   },
   {
@@ -514,6 +552,58 @@ const governmentWebsites: GovernmentCategory[] = [
         url: 'https://bppa.gov.bd',
       },
       { name: 'Economic Relations Division', url: 'https://erd.gov.bd' },
+    ],
+  },
+  {
+    category: 'Security and Defense',
+    icon: Shield,
+    websites: [
+      { name: 'Bangladesh Police', url: 'https://www.police.gov.bd' },
+      { name: 'Bangladesh Army', url: 'https://www.army.mil.bd' },
+      { name: 'Bangladesh Navy', url: 'https://www.navy.mil.bd' },
+      { name: 'Bangladesh Air Force', url: 'https://www.baf.mil.bd' },
+      { name: 'Border Guard Bangladesh (BGB)', url: 'https://www.bgb.gov.bd' },
+      { name: 'Rapid Action Battalion (RAB)', url: 'https://www.rab.gov.bd' },
+      { name: 'ISPR (Inter Services Public Relations)', url: 'https://ispr.gov.bd' },
+      { name: 'Special Branch', url: 'https://specialbranch.gov.bd' },
+      { name: 'National Defence College', url: 'https://ndc.gov.bd' },
+    ],
+  },
+  {
+    category: 'Regulatory Commissions',
+    icon: CheckCircle,
+    websites: [
+      { name: 'Bangladesh Election Commission', url: 'https://ecs.gov.bd' },
+      { name: 'Anti-Corruption Commission', url: 'https://acc.gov.bd' },
+      { name: 'Bangladesh Public Service Commission', url: 'https://bpsc.gov.bd' },
+      { name: 'Bangladesh Atomic Energy Commission', url: 'https://baec.gov.bd' },
+      { name: 'Bangladesh Food Safety Authority', url: 'https://bfsa.gov.bd' },
+      { name: 'Information Commission', url: 'https://infocom.gov.bd' },
+      { name: 'Human Rights Commission', url: 'https://nhrc.org.bd' },
+      { name: 'Bangladesh Energy Regulatory Commission', url: 'https://berc.gov.bd' },
+    ],
+  },
+  {
+    category: 'Disaster and Emergency',
+    icon: AlertTriangle,
+    websites: [
+      { name: 'Fire Service & Civil Defence', url: 'https://fireservice.gov.bd' },
+      { name: 'Department of Disaster Management', url: 'https://ddm.gov.bd' },
+      { name: 'Bangladesh Meteorological Department', url: 'https://bmd.gov.bd' },
+      { name: 'Flood Forecasting & Warning Centre', url: 'https://ffwc.gov.bd' },
+      { name: 'Cyclone Preparedness Programme', url: 'https://cpp.gov.bd' },
+      { name: 'Space Research & Remote Sensing (SPARRSO)', url: 'https://sparrso.gov.bd' },
+    ],
+  },
+  {
+    category: 'Maritime and Ports',
+    icon: Anchor,
+    websites: [
+      { name: 'Mongla Port Authority', url: 'https://mpa.gov.bd' },
+      { name: 'Payra Port Authority', url: 'https://ppa.gov.bd' },
+      { name: 'Bangladesh Shipping Corporation', url: 'https://bsc.gov.bd' },
+      { name: 'Department of Mercantile Marine', url: 'https://dmm.gov.bd' },
+      { name: 'Bangladesh Maritime University', url: 'https://bsmrmu.edu.bd' },
     ],
   },
   {
