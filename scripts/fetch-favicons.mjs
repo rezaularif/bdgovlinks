@@ -1,4 +1,4 @@
-// Fetch and cache favicons locally for all sites referenced in src/app/page.tsx
+// Fetch and cache favicons locally for all sites referenced in pages/index.vue
 // Usage: node scripts/fetch-favicons.mjs
 
 import fs from 'node:fs';
@@ -9,16 +9,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..');
 
-const PAGE_FILE = path.join(repoRoot, 'src', 'app', 'page.tsx');
+const PAGE_FILE = path.join(repoRoot, 'pages', 'index.vue');
 const OUTPUT_DIR = path.join(repoRoot, 'public', 'site-icons');
-const ICON_MAP_FILE = path.join(repoRoot, 'src', 'lib', 'site-icons.json');
+const ICON_MAP_FILE = path.join(repoRoot, 'utils', 'site-icons.json');
 
 async function ensureDir(dir) {
   await fs.promises.mkdir(dir, { recursive: true }).catch(() => {});
 }
 
 function extractUrlsFromPage(source) {
-  const regex = /url:\s*"(https?:\/\/[^"\s]+)"/g;
+  const regex = /url:\s*['"](https?:\/\/[^'"\s]+)['"]/g;
   const urls = new Set();
   let m;
   while ((m = regex.exec(source)) !== null) {
@@ -182,5 +182,4 @@ main().catch(err => {
   console.error(err);
   process.exit(1);
 });
-
 

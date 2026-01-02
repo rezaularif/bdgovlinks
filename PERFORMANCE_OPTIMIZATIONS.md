@@ -7,7 +7,7 @@ This log tracks the changes made to keep the Nuxt-powered homepage fast and the 
 - **Client-only feature loading** – `HeroParticles`, `ScrollToTopButton`, and the production-only `PerformanceMonitor` live in `.client.vue` files and render through `<ClientOnly>`, keeping them off the SSR + hydration critical path.
 - **Lucide tree-shaking** – We import icons from `lucide-vue-next` on a per-icon basis so the bundle only ships the glyphs we actually render.
 - **Particle efficiency** – The hero canvas respects `prefers-reduced-motion`, runs a single animation loop, and pauses whenever the component leaves the viewport. Resize and intersection observers are created once and torn down cleanly.
-- **Search filtering** – Directory filtering is debounced via Vue `computed` chains instead of eager loops, keeping keystrokes responsive even with larger datasets.
+- **Search filtering** – Directory filtering pre-normalises text and uses Vue `computed` filters to keep keystrokes responsive even with larger datasets.
 - **Static SEO payloads** – The JSON-LD schema is pre-stringified at module scope so we avoid per-render serialisation work.
 
 ## 🔍 Verification

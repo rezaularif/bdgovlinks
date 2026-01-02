@@ -110,7 +110,7 @@
                     class="flex items-start gap-3 rounded-lg px-2 py-2.5 text-left transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                   >
                     <img
-                      :src="getLocalIconPath(website.url)"
+                      :src="website.iconPath"
                       alt="site icon"
                       class="mt-0.5 h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
                       loading="lazy"
@@ -127,17 +127,12 @@
         </div>
 
         <div
-        class="hidden grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 md:grid"
+        class="hidden flex flex-wrap gap-4 sm:gap-6 lg:gap-6 md:flex"
         >
           <div
             v-for="category in filteredWebsites"
             :key="category.category"
-            :class="[
-              'h-full',
-              category.category === 'Local Government' || category.category === 'Public Services' || category.category === 'Key Ministries'
-                ? 'xl:col-span-2'
-                : null
-            ]"
+            class="h-full w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-1rem)]"
           >
             <div
               class="group flex h-full flex-col overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-primary/5 via-background to-secondary/5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
@@ -164,7 +159,7 @@
                       class="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                     >
                       <img
-                        :src="getLocalIconPath(website.url)"
+                        :src="website.iconPath"
                         alt="site icon"
                         class="h-5 w-5 flex-shrink-0 rounded-sm border border-border/40 bg-card"
                         loading="lazy"
@@ -315,15 +310,46 @@ type WebsiteEntry = {
   url: string;
 };
 
+type WebsiteEntryWithMeta = WebsiteEntry & {
+  iconPath: string;
+  nameLower: string;
+};
+
 type CategoryName = keyof typeof translations.en.categories;
 
-type GovernmentCategory = {
+type GovernmentCategorySeed = {
   category: CategoryName | (string & {});
   icon: Component;
   websites: WebsiteEntry[];
 };
 
-const governmentWebsites: GovernmentCategory[] = [
+type GovernmentCategory = {
+  category: CategoryName | (string & {});
+  icon: Component;
+  websites: WebsiteEntryWithMeta[];
+  categoryLower: string;
+};
+
+const normalizeText = (value: string) => value.toLowerCase();
+
+const getLocalIconPath = (url: string): string => {
+  try {
+    const { hostname } = new URL(url);
+    if (iconOverrides[hostname]) return iconOverrides[hostname];
+    if (iconMap[hostname]) return iconMap[hostname];
+    return '/site-icons/fall_back-favicon.png';
+  } catch {
+    return '/site-icons/fall_back-favicon.png';
+  }
+};
+
+const buildWebsiteEntry = (website: WebsiteEntry): WebsiteEntryWithMeta => ({
+  ...website,
+  iconPath: getLocalIconPath(website.url),
+  nameLower: normalizeText(website.name),
+});
+
+const governmentWebsitesSeed: GovernmentCategorySeed[] = [
   {
     category: 'Core Government',
     icon: Landmark,
@@ -638,6 +664,12 @@ const governmentWebsites: GovernmentCategory[] = [
   },
 ];
 
+const governmentWebsites: GovernmentCategory[] = governmentWebsitesSeed.map((category) => ({
+  ...category,
+  categoryLower: normalizeText(category.category),
+  websites: category.websites.map(buildWebsiteEntry),
+}));
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -658,28 +690,19 @@ const structuredData = {
   },
 };
 
+const structuredDataJson = JSON.stringify(structuredData);
+
 useHead({
   script: [
     {
       key: 'structured-data',
       type: 'application/ld+json',
-      innerHTML: JSON.stringify(structuredData),
+      innerHTML: structuredDataJson,
     },
   ],
-} as any);
+});
 
 const searchTerm = ref('');
-
-const getLocalIconPath = (url: string): string => {
-  try {
-    const { hostname } = new URL(url);
-    if (iconOverrides[hostname]) return iconOverrides[hostname];
-    if (iconMap[hostname]) return iconMap[hostname];
-    return '/site-icons/fall_back-favicon.png';
-  } catch {
-    return '/site-icons/fall_back-favicon.png';
-  }
-};
 
 const onIconError = (event: Event) => {
   const target = event.target as HTMLImageElement | null;
@@ -695,13 +718,17 @@ const filteredWebsites = computed(() => {
   }
 
   const searchLower = rawTerm.toLowerCase();
+  const searchWords =
+    searchLower.length > 2
+      ? searchLower.split(/\s+/).filter((word) => word.length > 0)
+      : [];
 
   const filterCategory = (category: GovernmentCategory) => {
-    const categoryLower = category.category.toLowerCase();
+    const categoryLower = category.categoryLower;
 
     if (searchLower.length <= 2) {
       const filteredSites = category.websites.filter((website) => {
-        const websiteLower = website.name.toLowerCase();
+        const websiteLower = website.nameLower;
         return (
           websiteLower.includes(searchLower) || categoryLower.includes(searchLower)
         );
@@ -712,10 +739,8 @@ const filteredWebsites = computed(() => {
         : null;
     }
 
-    const searchWords = searchLower.split(/\s+/).filter((word) => word.length > 0);
-
     const filteredSites = category.websites.filter((website) => {
-      const websiteLower = website.name.toLowerCase();
+      const websiteLower = website.nameLower;
       const combinedText = `${websiteLower} ${categoryLower}`;
 
       if (combinedText.includes(searchLower)) {

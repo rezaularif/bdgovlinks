@@ -65,7 +65,7 @@ onMounted(() => {
   }
 
   let particles: Particle[] = [];
-  let animationFrameId = 0;
+  let animationFrameId: number | null = null;
   let lastTime = 0;
   let isVisible = false;
   const fpsInterval = 1000 / 30;
@@ -91,55 +91,71 @@ onMounted(() => {
     regenerateParticles();
   };
 
-  const animate = (time: number) => {
-    animationFrameId = requestAnimationFrame(animate);
-    if (!isVisible) return;
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let prefersReducedMotion = mediaQuery.matches;
 
-    const elapsed = time - lastTime;
-    if (elapsed <= fpsInterval) return;
-
-    lastTime = time - (elapsed % fpsInterval);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach((particle) => {
-      particle.update(canvas.width, canvas.height);
-      particle.draw(ctx);
-    });
-
-    const connectionDistance = 70;
-    for (let i = 0; i < particles.length; i += 1) {
-      for (let j = i + 1; j < particles.length; j += 1) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const distanceSquared = dx * dx + dy * dy;
-
-        if (distanceSquared >= connectionDistance * connectionDistance) {
-          continue;
-        }
-
-        const distance = Math.sqrt(distanceSquared);
-        const opacity = (1 - distance / connectionDistance) * 0.04;
-
-        if (particles[i].colorType === particles[j].colorType) {
-          ctx.strokeStyle =
-            particles[i].colorType === 0
-              ? `rgba(0, 128, 0, ${opacity})`
-              : `rgba(220, 20, 60, ${opacity})`;
-        } else {
-          ctx.strokeStyle = `rgba(110, 74, 30, ${opacity})`;
-        }
-
-        ctx.lineWidth = 0.2;
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.stroke();
-      }
-    }
+  const stopAnimation = () => {
+    if (animationFrameId === null) return;
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
   };
 
-  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const prefersReducedMotion = mediaQuery.matches;
+  const animate = (time: number) => {
+    if (!isVisible || prefersReducedMotion) {
+      stopAnimation();
+      return;
+    }
+
+    const elapsed = time - lastTime;
+    if (elapsed > fpsInterval) {
+      lastTime = time - (elapsed % fpsInterval);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle) => {
+        particle.update(canvas.width, canvas.height);
+        particle.draw(ctx);
+      });
+
+      const connectionDistance = 70;
+      for (let i = 0; i < particles.length; i += 1) {
+        for (let j = i + 1; j < particles.length; j += 1) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distanceSquared = dx * dx + dy * dy;
+
+          if (distanceSquared >= connectionDistance * connectionDistance) {
+            continue;
+          }
+
+          const distance = Math.sqrt(distanceSquared);
+          const opacity = (1 - distance / connectionDistance) * 0.04;
+
+          if (particles[i].colorType === particles[j].colorType) {
+            ctx.strokeStyle =
+              particles[i].colorType === 0
+                ? `rgba(0, 128, 0, ${opacity})`
+                : `rgba(220, 20, 60, ${opacity})`;
+          } else {
+            ctx.strokeStyle = `rgba(110, 74, 30, ${opacity})`;
+          }
+
+          ctx.lineWidth = 0.2;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    animationFrameId = requestAnimationFrame(animate);
+  };
+
+  const startAnimation = () => {
+    if (prefersReducedMotion || animationFrameId !== null) return;
+    lastTime = performance.now();
+    animationFrameId = requestAnimationFrame(animate);
+  };
 
   const resizeObserver = new ResizeObserver(handleResize);
   resizeObserver.observe(canvas);
@@ -147,6 +163,11 @@ onMounted(() => {
   const intersectionObserver = new IntersectionObserver(
     ([entry]) => {
       isVisible = entry.isIntersecting;
+      if (isVisible) {
+        startAnimation();
+      } else {
+        stopAnimation();
+      }
     },
     { threshold: 0.1 },
   );
@@ -154,24 +175,23 @@ onMounted(() => {
 
   handleResize();
 
-  if (!prefersReducedMotion) {
-    animationFrameId = requestAnimationFrame(animate);
-  }
-
   const handleMotionChange = (event: MediaQueryListEvent) => {
-    if (event.matches) {
-      cancelAnimationFrame(animationFrameId);
+    prefersReducedMotion = event.matches;
+    if (prefersReducedMotion) {
+      stopAnimation();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-    } else {
-      lastTime = performance.now();
-      animationFrameId = requestAnimationFrame(animate);
+      return;
+    }
+
+    if (isVisible) {
+      startAnimation();
     }
   };
 
   mediaQuery.addEventListener('change', handleMotionChange);
 
   onBeforeUnmount(() => {
-    cancelAnimationFrame(animationFrameId);
+    stopAnimation();
     intersectionObserver.disconnect();
     resizeObserver.disconnect();
     mediaQuery.removeEventListener('change', handleMotionChange);
